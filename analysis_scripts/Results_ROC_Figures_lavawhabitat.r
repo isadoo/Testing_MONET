@@ -1,6 +1,6 @@
 ## ------------------ SETUP ------------------
 # Set working directory to the script location
-setwd("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/graphing_results")
+# setwd("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/graphing_results")
 
 library(pROC)
 library(ggplot2)
@@ -11,10 +11,10 @@ library(stringr)
 options(bitmapType = 'cairo')
 
 # Read the main data file with LAVA, QSTFST, and Driftsel
-df_main <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/results_tables/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
+df_main <- read.csv("../Testing_LAVA/raw_data/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
 
 # Read the habitat data file
-df_habitat <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/SALSA_nov/LAVA_WITH_HABITAT_RESULTS/lava_with_habitat_combined.tsv", header = TRUE, sep = "\t")
+df_habitat <- read.csv("../Testing_LAVA/raw_data/lava_with_habitat_combined.tsv", header = TRUE, sep = "\t")
 
 #standardize wdiff values BEFORE merge: convert 0.0 to 0, 10.0 to 10, keep 4p6 as is
 df_main$wdiff <- as.character(df_main$wdiff) 
@@ -189,7 +189,7 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_lava_habitat <- do.call(rbind, lapply(p_thresholds, function(thresh) {
       calculate_rates_pvalue(scenario_data, "habitat_p_value", "habitat_p_value_Neutral", thresh)
     }))
-    roc_lava_habitat$method <- "LAVA w/ habitat"
+    roc_lava_habitat$method <- "LAVA w/ environment"
     roc_lava_habitat$scenario <- scenario_name
     roc_lava_habitat$wdiff <- wdiff_val
     roc_lava_habitat$wvar <- wvar_val
@@ -238,8 +238,10 @@ process_population_structure <- function(pop_data, pop_name) {
   
   ## ------------------ PLOTTING (LOG X-AXIS) ------------------
   six.panels <- pop_name %in% c("SS", "Hierarchical")
+  
+  # Generate PNG version
   if (six.panels) {
-    png(paste0("Newlog_", pop_name, "_whabitat_log.png"),
+    png(paste0("Newlog_", pop_name, "_whabitat_log_January2026_environment.png"),
         height = 4500, width = 3000, res = 300, pointsize = 10)
     layout(matrix(c(1, 1, 2, 7, 3, 4, 5, 6), byrow = TRUE, ncol = 2),
            heights = c(1/20, 19/60, 19/60, 19/60), widths = c(1/2, 1/2))
@@ -247,7 +249,7 @@ process_population_structure <- function(pop_data, pop_name) {
     plot(1, 1, type = "n", bty = "n", axes = FALSE)
     text(1, 1, pretty_pop(pop_name), cex = 3)
   } else {
-    png(paste0("Newlog_", pop_name, "_whabitat_log.png"),
+    png(paste0("Newlog_", pop_name, "_whabitat_log_January2026_environment.png"),
         height = 3000, width = 3000, res = 300, pointsize = 10)
     layout(matrix(c(1, 1, 2, 5, 3, 4), byrow = TRUE, ncol = 2),
            heights = c(1/10, 9/20, 9/20), widths = c(1/2, 1/2))
@@ -256,7 +258,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "LAVA" = "#F49D37", "LAVA w/ habitat" = "#053225")
+  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#F49D37" , "LAVA" = "#62929E", "LAVA w/ environment" = "#053225")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -287,7 +289,7 @@ process_population_structure <- function(pop_data, pop_name) {
                    xlim = c(1e-2, 1), ylim = c(0, 1),
                    log = "x", xaxs = "i",
                    main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
-                                ", correlation =", gsub("_", "", corr_val)),
+                                ", correlation =", gsub("sine", "parabola", gsub("_", "", corr_val))),
                    xlab = "FPR (log scale)", ylab = "TPR",
                    cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
               abline(v = 0.05, col = "darkgrey", lty = 2, lwd = line_width)
@@ -339,7 +341,119 @@ process_population_structure <- function(pop_data, pop_name) {
   # Legend
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "LAVA", "LAVA w/ habitat"),
+         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "LAVA", "LAVA w/ environment"),
+         ncol   = 2,
+         lty    = c(linetypes, 0, rep(0, 4)),
+         lwd    = c(rep(line_width, 3), NA, rep(NA, 4)),
+         pch    = c(rep(NA, 3), NA, rep(15, 4)),
+         col    = c(rep("black", 3), "white", colours),
+         cex = 2, bty = "n")
+  
+  dev.off()
+  
+  # Generate PDF version
+  if (six.panels) {
+    pdf(paste0("Newlog_", pop_name, "_whabitat_log_January2026_environment.pdf"),
+        height = 15, width = 10)
+    layout(matrix(c(1, 1, 2, 7, 3, 4, 5, 6), byrow = TRUE, ncol = 2),
+           heights = c(1/20, 19/60, 19/60, 19/60), widths = c(1/2, 1/2))
+    par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
+    plot(1, 1, type = "n", bty = "n", axes = FALSE)
+    text(1, 1, pretty_pop(pop_name), cex = 3)
+  } else {
+    pdf(paste0("Newlog_", pop_name, "_whabitat_log_January2026_environment.pdf"),
+        height = 10, width = 10)
+    layout(matrix(c(1, 1, 2, 5, 3, 4), byrow = TRUE, ncol = 2),
+           heights = c(1/10, 9/20, 9/20), widths = c(1/2, 1/2))
+    par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
+    plot(1, 1, type = "n", bty = "n", axes = FALSE)
+    text(1, 1, pretty_pop(pop_name), cex = 3)
+  }
+  
+  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#F49D37" , "LAVA" = "#62929E", "LAVA w/ environment" = "#053225")
+  linetypes <- c("10" = 1, "22" = 2, "50" = 3)
+  
+  for (wdiff_val in levels(all_roc_data$wdiff)) {
+    
+    if (pop_name %in% c("SS", "Hierarchical") && wdiff_val != "0") {
+      
+      correlations <- unique(all_roc_data[all_roc_data$wdiff == wdiff_val &
+                                            !is.na(all_roc_data$correlation), "correlation"])
+      for (corr_val in correlations) {
+        
+        plot_data <- all_roc_data[all_roc_data$wdiff == wdiff_val &
+                                    all_roc_data$correlation == corr_val &
+                                    !is.na(all_roc_data$correlation), ]
+        if (nrow(plot_data) == 0) next
+        first <- TRUE
+        
+        for (wvar_val in unique(plot_data$wvar)) {
+          tmp <- plot_data[plot_data$wvar == wvar_val, ]
+          for (method in unique(tmp$method)) {
+            tmp.method <- tmp[tmp$method == method, ]
+            
+            if (first) {
+              par(mar = c(5.1, 4.1, 4.1, 2.1))
+              plot(tmp.method$FPR_plot, tmp.method$TPR, type = "l",
+                   lty = linetypes[as.character(wvar_val)],
+                   lwd = line_width,
+                   col = colours[method],
+                   xlim = c(1e-2, 1), ylim = c(0, 1),
+                   log = "x", xaxs = "i",
+                   main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
+                                ", correlation =", gsub("sine", "parabola", gsub("_", "", corr_val))),
+                   xlab = "FPR (log scale)", ylab = "TPR",
+                   cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
+              abline(v = 0.05, col = "darkgrey", lty = 2, lwd = line_width)
+              first <- FALSE
+            } else {
+              lines(tmp.method$FPR_plot, tmp.method$TPR,
+                    lty = linetypes[as.character(wvar_val)],
+                    lwd = line_width,
+                    col = colours[method])
+            }
+          }
+        }
+      }
+      
+    } else {
+      
+      plot_data <- all_roc_data[all_roc_data$wdiff == wdiff_val, ]
+      first <- TRUE
+      
+      for (wvar_val in unique(plot_data$wvar)) {
+        tmp <- plot_data[plot_data$wvar == wvar_val, ]
+        for (method in unique(tmp$method)) {
+          tmp.method <- tmp[tmp$method == method, ]
+          
+          if (first) {
+            par(mar = c(5.1, 4.1, 4.1, 2.1))
+            plot(tmp.method$FPR_plot, tmp.method$TPR, type = "l",
+                 lty = linetypes[as.character(wvar_val)],
+                 lwd = line_width,
+                 col = colours[method],
+                 xlim = c(1e-2, 1), ylim = c(0, 1),
+                 log = "x", xaxs = "i",
+                 main = paste(Delta_theta, "=", disp_wdiff(wdiff_val)),
+                 xlab = "FPR (log scale)", ylab = "TPR",
+                 cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
+            abline(v = 0.05, col = "darkgrey", lty = 2, lwd = line_width)
+            first <- FALSE
+          } else {
+            lines(tmp.method$FPR_plot, tmp.method$TPR,
+                  lty = linetypes[as.character(wvar_val)],
+                  lwd = line_width,
+                  col = colours[method])
+          }
+        }
+      }
+    }
+  }
+  
+  # Legend
+  plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
+  legend("center",
+         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "LAVA", "LAVA w/ environment"),
          ncol   = 2,
          lty    = c(linetypes, 0, rep(0, 4)),
          lwd    = c(rep(line_width, 3), NA, rep(NA, 4)),
@@ -419,5 +533,6 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
     cat(sprintf("  Driftsel:        FPR = %.4f (ratio = %.2f)\n", 
                 fpr_driftsel, fpr_driftsel / threshold))
     cat("\n")
-    
+  }
+  cat("\n")
 }
