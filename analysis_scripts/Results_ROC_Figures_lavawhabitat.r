@@ -420,4 +420,5 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
                 fpr_driftsel, fpr_driftsel / threshold))
     cat("\n")
     
-}
+  }  # End inner for loop (threshold)
+}  # End outer for loop (pop_struct)

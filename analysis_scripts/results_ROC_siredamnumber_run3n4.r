@@ -20,7 +20,7 @@ run4 <- read.delim("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Te
                    header = TRUE, sep = "\t", stringsAsFactors = FALSE)
 
 # Read all_runs data (CSV) - 5x5 sires/dams
-all_runs <- read.delim("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/results_tables/3methods_full_breeding_combined_november.tsv", 
+all_runs <- read.delim("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_LAVA/raw_data/3methods_full_breeding_combined_november.tsv", 
                        header = TRUE, sep = "\t", stringsAsFactors = FALSE)
 
 

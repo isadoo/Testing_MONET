@@ -1,4 +1,4 @@
-model	num_pops	fst	wdiff	wvar	correlation	generations	replicate_number	S_value_Driftsel	S_value_Driftsel_Neutral	p_value_QSTFST	p_value_QSTFST_Neutral	p_value_LAVA	log_ratio_LAVA	p_value_LAVA_Neutral	log_ratio_LAVA_Neutral
+model	num_pops	fst	wdiff	wvar	correlation	generations	replicate_number	S_value_Driftsel	S_value_Driftsel_Neutral	p_value_QSTFST	p_value_QSTFST_Neutral	p_value_MONET	log_ratio_MONET	p_value_MONET_Neutral	log_ratio_MONET_Neutral
 IM	18	NA	10	22	NA	1000	107	0.997878251959766	0.51670572035559	0	0.804	0	1.8536615994974	0.52775	0.293189037636037
 IM	18	NA	10	22	NA	1000	104	0.990136503689682	0.451453308743409	0.001	0.627	0	1.67548003775996	0.75225	-0.163536946592383
 IM	18	NA	10	22	NA	1000	106	0.997364656603897	0.730678764058379	0	0.299	0	1.72497926945126	0.17	0.609121675433104

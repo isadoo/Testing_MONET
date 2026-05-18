@@ -9,7 +9,7 @@ library(stringr)
 #non-interactive graphics device for headless systems
 options(bitmapType = 'cairo')
 
-df <- read.csv("3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
+df <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_LAVA/raw_data/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
 
 #standardize wdiff values: convert 0.0 to 0, 10.0 to 10, keep 4p6 as is
 #on the new results it's in float (SS results)

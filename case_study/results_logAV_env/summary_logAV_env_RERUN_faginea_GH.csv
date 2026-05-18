@@ -1,0 +1,2 @@
+"species","garden","trait","n_individuals","n_populations","log_ratio_mean","log_ratio_median","log_ratio_lo","log_ratio_hi","log_ratio_p","PC1_beta_mean","PC1_beta_lo","PC1_beta_hi","PC1_p","PC2_beta_mean","PC2_beta_lo","PC2_beta_hi","PC2_p","n_divergent","max_rhat","min_bulk_ess","min_tail_ess"
+"faginea","GH","RGR.TreatD",369,8,0.339413179962653,0.631591194224043,-5.71777834326453,4.43808168798862,0.79475,NA,NA,NA,NA,NA,NA,NA,NA,43,1.037338856745,NA,NA
