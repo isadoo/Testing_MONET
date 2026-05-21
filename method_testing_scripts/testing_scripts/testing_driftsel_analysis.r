@@ -1,4 +1,4 @@
-source("../../../Chapter1/driftsel.r")
+source("tools/driftsel.r")
 
 library(gaston)
 library(hierfstat)
