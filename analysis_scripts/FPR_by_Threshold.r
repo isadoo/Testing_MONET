@@ -184,7 +184,7 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_MONET$correlation <- corr_val
     roc_MONET <- prepare_for_linear_plot(roc_MONET)
     
-    #Driftsel (folded S thresholds)
+    #Driftsel (folded S thresholds; y-axis = 2 * folded S so it spans 0-1)
     roc_driftsel <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
       calculate_rates_svalue_folded(
         scenario_data,
@@ -192,6 +192,7 @@ process_population_structure <- function(pop_data, pop_name) {
         th_sfold
       )
     }))
+    roc_driftsel$threshold <- 2 * roc_driftsel$threshold
     roc_driftsel$method <- "Driftsel"
     roc_driftsel$scenario <- scenario_name
     roc_driftsel$wdiff <- wdiff_val
@@ -282,20 +283,20 @@ process_population_structure <- function(pop_data, pop_name) {
             
             if (first) {
               par(mar = c(5.1, 4.1, 4.1, 2.1))
-              plot(d$FPR, d$threshold, type = "l",
+              plot(d$threshold, d$FPR, type = "l",
                    lty = linetypes[as.character(wvar_val)],
                    lwd = line_width,
                    col = colours[method],
-                   xlim = c(0, 1),
-                   ylim = range(plot_data$threshold, na.rm = TRUE),
+                   ylim = c(0, 1),
+                   xlim = range(plot_data$threshold, na.rm = TRUE),
                    main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
                                 ", correlation =", gsub("_", "", corr_val)),
-                   xlab = "FPR", ylab = "Threshold",
+                   xlab = "Threshold", ylab = "FPR",
                    cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
               abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
               first <- FALSE
             } else {
-              lines(d$FPR, d$threshold,
+              lines(d$threshold, d$FPR,
                     lty = linetypes[as.character(wvar_val)],
                     lwd = line_width,
                     col = colours[method])
@@ -318,19 +319,19 @@ process_population_structure <- function(pop_data, pop_name) {
           
           if (first) {
             par(mar = c(5.1, 4.1, 4.1, 2.1))
-            plot(d$FPR, d$threshold, type = "l",
+            plot(d$threshold, d$FPR, type = "l",
                  lty = linetypes[as.character(wvar_val)],
                  lwd = line_width,
                  col = colours[method],
-                 xlim = c(0, 1),
-                 ylim = range(plot_data$threshold, na.rm = TRUE),
+                 ylim = c(0, 1),
+                 xlim = range(plot_data$threshold, na.rm = TRUE),
                  main = paste(Delta_theta, "=", disp_wdiff(wdiff_val)),
-                 xlab = "FPR", ylab = "Threshold",
+                 xlab = "Threshold", ylab = "FPR",
                  cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
             abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
             first <- FALSE
           } else {
-            lines(d$FPR, d$threshold,
+            lines(d$threshold, d$FPR,
                   lty = linetypes[as.character(wvar_val)],
                   lwd = line_width,
                   col = colours[method])
@@ -397,20 +398,20 @@ process_population_structure <- function(pop_data, pop_name) {
             
             if (first) {
               par(mar = c(5.1, 4.1, 4.1, 2.1))
-              plot(d$FPR, d$threshold, type = "l",
+              plot(d$threshold, d$FPR, type = "l",
                    lty = linetypes[as.character(wvar_val)],
                    lwd = line_width,
                    col = colours[method],
-                   xlim = c(0, 1),
-                   ylim = range(plot_data$threshold, na.rm = TRUE),
+                   ylim = c(0, 1),
+                   xlim = range(plot_data$threshold, na.rm = TRUE),
                    main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
                                 ", correlation =", gsub("_", "", corr_val)),
-                   xlab = "FPR", ylab = "Threshold",
+                   xlab = "Threshold", ylab = "FPR",
                    cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
               abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
               first <- FALSE
             } else {
-              lines(d$FPR, d$threshold,
+              lines(d$threshold, d$FPR,
                     lty = linetypes[as.character(wvar_val)],
                     lwd = line_width,
                     col = colours[method])
@@ -433,19 +434,19 @@ process_population_structure <- function(pop_data, pop_name) {
           
           if (first) {
             par(mar = c(5.1, 4.1, 4.1, 2.1))
-            plot(d$FPR, d$threshold, type = "l",
+            plot(d$threshold, d$FPR, type = "l",
                  lty = linetypes[as.character(wvar_val)],
                  lwd = line_width,
                  col = colours[method],
-                 xlim = c(0, 1),
-                 ylim = range(plot_data$threshold, na.rm = TRUE),
+                 ylim = c(0, 1),
+                 xlim = range(plot_data$threshold, na.rm = TRUE),
                  main = paste(Delta_theta, "=", disp_wdiff(wdiff_val)),
-                 xlab = "FPR", ylab = "Threshold",
+                 xlab = "Threshold", ylab = "FPR",
                  cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
             abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
             first <- FALSE
           } else {
-            lines(d$FPR, d$threshold,
+            lines(d$threshold, d$FPR,
                   lty = linetypes[as.character(wvar_val)],
                   lwd = line_width,
                   col = colours[method])
@@ -546,7 +547,7 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
     roc_MONET$correlation <- corr_val
     roc_MONET <- prepare_for_linear_plot(roc_MONET)
     
-    #Driftsel (folded S thresholds using scenario-specific SD)
+    #Driftsel (folded S thresholds using scenario-specific SD; y-axis = 2 * folded S)
     scenario_s_fold_thresholds <- S_fold_from_p(p_thresholds, s_sd = scenario_sd)
     roc_driftsel <- do.call(rbind, lapply(scenario_s_fold_thresholds, function(th_sfold) {
       calculate_rates_svalue_folded(
@@ -555,6 +556,7 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
         th_sfold
       )
     }))
+    roc_driftsel$threshold <- 2 * roc_driftsel$threshold
     roc_driftsel$method <- "Driftsel"
     roc_driftsel$scenario <- scenario_name
     roc_driftsel$wdiff <- wdiff_val
@@ -647,20 +649,20 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
             
             if (first) {
               par(mar = c(5.1, 4.1, 4.1, 2.1))
-              plot(d$FPR, d$threshold, type = "l",
+              plot(d$threshold, d$FPR, type = "l",
                    lty = linetypes[as.character(wvar_val)],
                    lwd = line_width,
                    col = colours[method],
-                   xlim = c(0, 1),
-                   ylim = range(plot_data$threshold, na.rm = TRUE),
+                   ylim = c(0, 1),
+                   xlim = range(plot_data$threshold, na.rm = TRUE),
                    main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
                                 ", correlation =", gsub("_", "", corr_val)),
-                   xlab = "FPR", ylab = "Threshold",
+                   xlab = "Threshold", ylab = "FPR",
                    cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
               abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
               first <- FALSE
             } else {
-              lines(d$FPR, d$threshold,
+              lines(d$threshold, d$FPR,
                     lty = linetypes[as.character(wvar_val)],
                     lwd = line_width,
                     col = colours[method])
@@ -684,19 +686,19 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
           
           if (first) {
             par(mar = c(5.1, 4.1, 4.1, 2.1))
-            plot(d$FPR, d$threshold, type = "l",
+            plot(d$threshold, d$FPR, type = "l",
                  lty = linetypes[as.character(wvar_val)],
                  lwd = line_width,
                  col = colours[method],
-                 xlim = c(0, 1),
-                 ylim = range(plot_data$threshold, na.rm = TRUE),
+                 ylim = c(0, 1),
+                 xlim = range(plot_data$threshold, na.rm = TRUE),
                  main = paste(Delta_theta, "=", disp_wdiff(wdiff_val)),
-                 xlab = "FPR", ylab = "Threshold",
+                 xlab = "Threshold", ylab = "FPR",
                  cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
             abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
             first <- FALSE
           } else {
-            lines(d$FPR, d$threshold,
+            lines(d$threshold, d$FPR,
                   lty = linetypes[as.character(wvar_val)],
                   lwd = line_width,
                   col = colours[method])
@@ -763,20 +765,20 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
             
             if (first) {
               par(mar = c(5.1, 4.1, 4.1, 2.1))
-              plot(d$FPR, d$threshold, type = "l",
+              plot(d$threshold, d$FPR, type = "l",
                    lty = linetypes[as.character(wvar_val)],
                    lwd = line_width,
                    col = colours[method],
-                   xlim = c(0, 1),
-                   ylim = range(plot_data$threshold, na.rm = TRUE),
+                   ylim = c(0, 1),
+                   xlim = range(plot_data$threshold, na.rm = TRUE),
                    main = paste(Delta_theta, "=", disp_wdiff(wdiff_val),
                                 ", correlation =", gsub("_", "", corr_val)),
-                   xlab = "FPR", ylab = "Threshold",
+                   xlab = "Threshold", ylab = "FPR",
                    cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
               abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
               first <- FALSE
             } else {
-              lines(d$FPR, d$threshold,
+              lines(d$threshold, d$FPR,
                     lty = linetypes[as.character(wvar_val)],
                     lwd = line_width,
                     col = colours[method])
@@ -800,19 +802,19 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
           
           if (first) {
             par(mar = c(5.1, 4.1, 4.1, 2.1))
-            plot(d$FPR, d$threshold, type = "l",
+            plot(d$threshold, d$FPR, type = "l",
                  lty = linetypes[as.character(wvar_val)],
                  lwd = line_width,
                  col = colours[method],
-                 xlim = c(0, 1),
-                 ylim = range(plot_data$threshold, na.rm = TRUE),
+                 ylim = c(0, 1),
+                 xlim = range(plot_data$threshold, na.rm = TRUE),
                  main = paste(Delta_theta, "=", disp_wdiff(wdiff_val)),
-                 xlab = "FPR", ylab = "Threshold",
+                 xlab = "Threshold", ylab = "FPR",
                  cex.lab = label_cex, cex.axis = axis_cex, cex.main = main_cex)
             abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
             first <- FALSE
           } else {
-            lines(d$FPR, d$threshold,
+            lines(d$threshold, d$FPR,
                   lty = linetypes[as.character(wvar_val)],
                   lwd = line_width,
                   col = colours[method])
@@ -837,6 +839,61 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
   list(thresh_fpr_data = all_roc_data, auc_data = all_auc_data, sd_data = all_sd_data)
 }
 
+## ------------------ MY SANITY CHECK: realized FPR at nominal thresholds ------------------
+
+diagnostic_fpr <- function(pop_data, pop_name) {
+  if (pop_name %in% c("SS", "Hierarchical")) {
+    scenarios <- pop_data %>%
+      filter(!is.na(wdiff) & !is.na(wvar)) %>%
+      mutate(correlation = na_if(str_trim(as.character(correlation)), "")) %>%
+      select(wdiff, wvar, correlation) %>%
+      distinct() %>% arrange(wdiff, wvar, correlation)
+  } else {
+    scenarios <- pop_data %>%
+      filter(!is.na(wdiff) & !is.na(wvar)) %>%
+      select(wdiff, wvar) %>%
+      distinct() %>% arrange(wdiff, wvar)
+    scenarios$correlation <- NA
+  }
+  out <- list()
+  for (i in seq_len(nrow(scenarios))) {
+    wd <- scenarios$wdiff[i]; wv <- scenarios$wvar[i]; cr <- scenarios$correlation[i]
+    if (is.na(cr)) {
+      sd_ <- pop_data[pop_data$wdiff == wd & pop_data$wvar == wv, ]
+    } else {
+      sd_ <- pop_data[pop_data$wdiff == wd & pop_data$wvar == wv & pop_data$correlation == cr, ]
+    }
+    if (!nrow(sd_)) next
+    fpr_p <- function(col, th) mean(sd_[[col]] < th, na.rm = TRUE)
+    s_neu_fold <- pmin(sd_$S_value_Driftsel_Neutral, 1 - sd_$S_value_Driftsel_Neutral)
+    out[[length(out) + 1]] <- data.frame(
+      pop                = pop_name,
+      wdiff              = wd, wvar = wv, correlation = cr,
+      QSTFST_FPR_p05     = fpr_p("p_value_QSTFST_Neutral",  0.05),
+      MONET_FPR_p05      = fpr_p("p_value_MONET_Neutral",    0.05),
+      Habitat_FPR_p05    = fpr_p("habitat_p_value_Neutral",  0.05),
+      Driftsel_FPR_sf025 = mean(s_neu_fold < 0.025, na.rm = TRUE),
+      QSTFST_FPR_p01     = fpr_p("p_value_QSTFST_Neutral",  0.01),
+      MONET_FPR_p01      = fpr_p("p_value_MONET_Neutral",    0.01),
+      Habitat_FPR_p01    = fpr_p("habitat_p_value_Neutral",  0.01),
+      Driftsel_FPR_sf005 = mean(s_neu_fold < 0.005, na.rm = TRUE),
+      n                  = nrow(sd_)
+    )
+  }
+  do.call(rbind, out)
+}
+
+cat("\n\n MY SANITY CHECK: realized FPR at nominal thresholds \n")
+diag_all <- rbind(
+  diagnostic_fpr(im18,         "IM_18"),
+  diagnostic_fpr(im9,          "IM_9"),
+  diagnostic_fpr(ss,           "SS"),
+  diagnostic_fpr(hierarchical, "Hierarchical")
+)
+print(diag_all, row.names = FALSE, digits = 3)
+write.csv(diag_all, "diagnostic_FPR_at_nominal_thresholds.csv", row.names = FALSE)
+cat("\nSaved: diagnostic_FPR_at_nominal_thresholds.csv\n\n")
+
 ## ------------------------------------------------------
 # Original figures without calibration line
 res_im18 <- process_population_structure(im18, "IM_18")
@@ -844,12 +901,12 @@ res_im9  <- process_population_structure(im9,  "IM_9")
 res_ss   <- process_population_structure(ss,   "SS")
 res_hier <- process_population_structure(hierarchical, "Hierarchical")
 
-# New figures with scenario-specific SD calibration line
-cat("\n\n===== GENERATING SD-SPECIFIC FIGURES =====\n\n")
-res_im18_sd <- process_population_structure_with_sd(im18, "IM_18")
-res_im9_sd  <- process_population_structure_with_sd(im9,  "IM_9")
-res_ss_sd   <- process_population_structure_with_sd(ss,   "SS")
-res_hier_sd <- process_population_structure_with_sd(hierarchical, "Hierarchical")
+# SD CALIBRATION FIGURES (unsure this makes sense tbh)
+##cat("\n\n GENERATING SD-SPECIFIC FIGURES \n\n")
+#res_im18_sd <- process_population_structure_with_sd(im18, "IM_18")
+#res_im9_sd  <- process_population_structure_with_sd(im9,  "IM_9")
+#res_ss_sd   <- process_population_structure_with_sd(ss,   "SS")
+#res_hier_sd <- process_population_structure_with_sd(hierarchical, "Hierarchical")
 
 
 all_auc_results <- rbind(
