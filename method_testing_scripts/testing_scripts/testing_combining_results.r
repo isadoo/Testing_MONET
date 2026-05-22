@@ -13,31 +13,31 @@ folder_name <- paste0("wdiff", wdiff, "_wvar", wvar)
 results_dir <- paste0("results/",experiment_name, "/")
 
 # Read individual results files
-lava_file <- paste0(results_dir, "lava_results_", folder_name, ".csv")
+monet_file <- paste0(results_dir, "monet_results_", folder_name, ".csv")
 qstfst_file <- paste0(results_dir, "qstfst_results_", folder_name, ".csv")
 driftsel_file <- paste0(results_dir, "driftsel_results_", folder_name, ".csv")
 
 # Check if all files exist
-if (!file.exists(lava_file) || !file.exists(qstfst_file) || !file.exists(driftsel_file)) {
+if (!file.exists(monet_file) || !file.exists(qstfst_file) || !file.exists(driftsel_file)) {
   cat("Warning: Not all result files exist for replicate", replicate_number, "folder", folder_name, "\n")
-  cat("LAVA file exists:", file.exists(lava_file), "\n")
+  cat("MONET file exists:", file.exists(monet_file), "\n")
   cat("QSTFST file exists:", file.exists(qstfst_file), "\n")
   cat("Driftsel file exists:", file.exists(driftsel_file), "\n")
   quit(status = 1)
 }
 
 # Read results
-lava_results <- read.csv(lava_file)
+monet_results <- read.csv(monet_file)
 qstfst_results <- read.csv(qstfst_file)
 driftsel_results <- read.csv(driftsel_file)
 
 # Filter for current replicate
-lava_rep <- lava_results[lava_results$replicate_number == replicate_number, ]
+monet_rep <- monet_results[monet_results$replicate_number == replicate_number, ]
 qstfst_rep <- qstfst_results[qstfst_results$replicate_number == replicate_number, ]
 driftsel_rep <- driftsel_results[driftsel_results$replicate_number == replicate_number, ]
 
 # Check if all methods have results for this replicate
-if (nrow(lava_rep) == 0 || nrow(qstfst_rep) == 0 || nrow(driftsel_rep) == 0) {
+if (nrow(monet_rep) == 0 || nrow(qstfst_rep) == 0 || nrow(driftsel_rep) == 0) {
   cat("Warning: Missing results for replicate", replicate_number, "in folder", folder_name, "\n")
   quit(status = 1)
 }
@@ -46,12 +46,12 @@ if (nrow(lava_rep) == 0 || nrow(qstfst_rep) == 0 || nrow(driftsel_rep) == 0) {
 combined_results <- data.frame(
   replicate_number = replicate_number,
   p_value_QSTFST = qstfst_rep$p_value_QSTFST,
-  p_value_LAVA = lava_rep$p_value_LAVA,
-  log_ratio_LAVA = lava_rep$log_ratio_LAVA,
+  p_value_MONET = monet_rep$p_value_MONET,
+  log_ratio_MONET = monet_rep$log_ratio_MONET,
   S_value_Driftsel = driftsel_rep$S_value_Driftsel,
   p_value_QSTFST_Neutral = qstfst_rep$p_value_QSTFST_Neutral,
-  p_value_LAVA_Neutral = lava_rep$p_value_LAVA_Neutral,
-  log_ratio_LAVA_Neutral = lava_rep$log_ratio_LAVA_Neutral,
+  p_value_MONET_Neutral = monet_rep$p_value_MONET_Neutral,
+  log_ratio_MONET_Neutral = monet_rep$log_ratio_MONET_Neutral,
   S_value_Driftsel_Neutral = driftsel_rep$S_value_Driftsel_Neutral
 )
 

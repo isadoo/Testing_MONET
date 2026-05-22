@@ -1,4 +1,4 @@
-"scenario","QSTFST_AUC","LAVA_AUC","Driftsel_AUC","graph_id","sire_dam_design","graph_name"
+"scenario","QSTFST_AUC","MONET_AUC","Driftsel_AUC","graph_id","sire_dam_design","graph_name"
 "Island Model (3x3)",0.777870259008945,0.786641609884412,0.764366891443709,1,"3x3","Island Model"
 "Island Model (1x9)",0.777870259008945,0.786641609884412,0.764366891443709,1,"1x9","Island Model"
 "Island Model (5x5)",0.996881580255997,0.997928539422451,0.970010341261634,1,"5x5","Island Model"

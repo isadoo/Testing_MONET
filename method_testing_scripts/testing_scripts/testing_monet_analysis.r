@@ -50,25 +50,25 @@ monet_result_Neutral <- monet(Theta.P,
                               column_individual = "individual", 
                               column_trait = "trait_Neutral")
 
-# Save LAVA results
-lava_results <- data.frame(
+# Save MONET results
+monet_results <- data.frame(
   replicate_number = replicate_number,
   folder_name = folder_name,
-  p_value_LAVA = lava_result$log_ratio$p_value,
-  log_ratio_LAVA = lava_result$log_ratio$mean_log_ratio,
-  p_value_LAVA_Neutral = lava_result_Neutral$log_ratio$p_value,
-  log_ratio_LAVA_Neutral = lava_result_Neutral$log_ratio$mean_log_ratio
+  p_value_MONET = monet_result$log_ratio$p_value,
+  log_ratio_MONET = monet_result$log_ratio$mean_log_ratio,
+  p_value_MONET_Neutral = monet_result_Neutral$log_ratio$p_value,
+  log_ratio_MONET_Neutral = monet_result_Neutral$log_ratio$mean_log_ratio
 )
 
 # Save results
 results_dir <- paste0("results/",experiment_name, "/")
 dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
 
-lava_file <- paste0(results_dir, "lava_results_", folder_name, ".csv")
+monet_file <- paste0(results_dir, "monet_results_", folder_name, ".csv")
 
 write.table(
-  lava_results, file = lava_file, append = TRUE, 
-  sep = ",", col.names = !file.exists(lava_file), row.names = FALSE
+  monet_results, file = monet_file, append = TRUE, 
+  sep = ",", col.names = !file.exists(monet_file), row.names = FALSE
 )
 
-cat("LAVA analysis completed. Results saved to:", lava_file, "\n")
+cat("MONET analysis completed. Results saved to:", monet_file, "\n")

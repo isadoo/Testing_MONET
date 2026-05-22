@@ -1,4 +1,4 @@
-"scenario","QSTFST_AUC","LAVA_AUC","Driftsel_AUC","graph_id","pops_analyzed","graph_name"
+"scenario","QSTFST_AUC","MONET_AUC","Driftsel_AUC","graph_id","pops_analyzed","graph_name"
 "Island Model (9 pops)",0.790130340346126,0.79842088579018,0.77642703775453,1,9,"Island Model"
 "Island Model (18 pops)",0.995798319327731,0.997896952898807,0.960084033613445,1,18,"Island Model"
 "SS - Cline (9 pops)",0.617464,0.603916,0.529928,2,9,"SS - Cline"

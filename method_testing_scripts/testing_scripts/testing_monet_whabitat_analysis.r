@@ -52,7 +52,7 @@ intermediate_file <- paste0(intermediate_dir, "prepared_data_rep", replicate_num
 cat("Loading data from:", intermediate_file, "\n")
 load(intermediate_file)
 
-#Going from parameters to habitat info. This habitat info is what we use as a covariate in lava.
+#Going from parameters to habitat info. This habitat info is what we use as a covariate in monet.
 #This "habitat" is actually the optima we used in the simulations.
 get_habitat_optima <- function(Population_structure, correlation) {
   

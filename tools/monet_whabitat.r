@@ -28,7 +28,7 @@
 #' \item{habitat_analysis}{A list with habitat coefficient estimates, confidence intervals, and p-value.}
 #' \item{BRMS_model}{A list with the fitted Bayesian model and hypothesis test results.}
 #'
-#' @details This function extends the standard LAVA analysis by including habitat 
+#' @details This function extends the standard MONET analysis by including habitat 
 #' optima as a fixed effect to test for local adaptation. The habitat coefficient 
 #' tests whether populations from different environmental optima show systematic 
 #' genetic differentiation in trait values.
@@ -199,7 +199,7 @@ monet_whabitat <- function(Theta.P,
 print.monet_whabitat <- function(x, ...) {
   # Header
   cat("\n===============================\n")
-  cat("Log Ancestral Variance Analysis with Habitat (LAVA)\n")
+  cat("Log Ancestral Variance Analysis with Habitat (MONET)\n")
   cat("===============================\n\n")
   
   # Key findings

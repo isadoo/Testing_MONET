@@ -1,4 +1,4 @@
-experiment_name	model	num_pops	fst	wdiff	wvar	correlation	generations	replicate_number	S_value_Driftsel	S_value_Driftsel_Neutral	p_value_QSTFST	p_value_QSTFST_Neutral	p_value_LAVA	log_ratio_LAVA	p_value_LAVA_Neutral	log_ratio_LAVA_Neutral
+experiment_name	model	num_pops	fst	wdiff	wvar	correlation	generations	replicate_number	S_value_Driftsel	S_value_Driftsel_Neutral	p_value_QSTFST	p_value_QSTFST_Neutral	p_value_MONET	log_ratio_MONET	p_value_MONET_Neutral	log_ratio_MONET_Neutral
 quantinemo_SS_18pop	SS	18	NA	0.0	50.0	NA	3000	109	0.467319156674131	0.748732751495662	0.27	0.751	0.877	0.102787398841671	0.1705	0.801843152744625
 quantinemo_SS_18pop	SS	18	NA	0.0	50.0	NA	3000	167	0.483431468690592	0.387286983880999	0.204	0.058	0.50225	0.512760127257811	0.29975	-1.06008692488461
 quantinemo_SS_18pop	SS	18	NA	0.0	50.0	NA	3000	100	0.372560968099396	0.790236555843335	0.055	0.0	0.721	-0.292921150844225	0.04875	1.11245025696551

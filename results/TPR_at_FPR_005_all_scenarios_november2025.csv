@@ -1,4 +1,4 @@
-"model","wdiff","wvar","correlation","TPR_at_FPR005_QSTFST","TPR_at_FPR005_LAVA","TPR_at_FPR005_Driftsel","n_replicates"
+"model","wdiff","wvar","correlation","TPR_at_FPR005_QSTFST","TPR_at_FPR005_MONET","TPR_at_FPR005_Driftsel","n_replicates"
 "IM","0","10",NA,0.907,0.866,0.8848,500
 "IM","0","22",NA,0.597,0.506,0.568,500
 "IM","0","50",NA,0.0948,0.073,0.1005,500

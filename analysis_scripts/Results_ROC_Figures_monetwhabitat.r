@@ -10,11 +10,11 @@ library(stringr)
 #non-interactive graphics device for headless systems
 options(bitmapType = 'cairo')
 
-# Read the main data file with LAVA, QSTFST, and Driftsel
+# Read the main data file with MONET, QSTFST, and Driftsel
 df_main <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/results_tables/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
 
 # Read the habitat data file
-df_habitat <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/SALSA_nov/LAVA_WITH_HABITAT_RESULTS/lava_with_habitat_combined.tsv", header = TRUE, sep = "\t")
+df_habitat <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/SALSA_nov/MONET_WITH_HABITAT_RESULTS/monet_with_habitat_combined.tsv", header = TRUE, sep = "\t")
 
 #standardize wdiff values BEFORE merge: convert 0.0 to 0, 10.0 to 10, keep 4p6 as is
 df_main$wdiff <- as.character(df_main$wdiff) 
@@ -174,27 +174,27 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_qstfst$correlation <- corr_val
     roc_qstfst <- prepare_for_log_plot(roc_qstfst)
     
-    # LAVA
-    roc_lava <- do.call(rbind, lapply(p_thresholds, function(thresh) {
-      calculate_rates_pvalue(scenario_data, "p_value_LAVA", "p_value_LAVA_Neutral", thresh)
+    # MONET
+    roc_monet <- do.call(rbind, lapply(p_thresholds, function(thresh) {
+      calculate_rates_pvalue(scenario_data, "p_value_MONET", "p_value_MONET_Neutral", thresh)
     }))
-    roc_lava$method <- "LAVA"
-    roc_lava$scenario <- scenario_name
-    roc_lava$wdiff <- wdiff_val
-    roc_lava$wvar <- wvar_val
-    roc_lava$correlation <- corr_val
-    roc_lava <- prepare_for_log_plot(roc_lava)
+    roc_monet$method <- "MONET"
+    roc_monet$scenario <- scenario_name
+    roc_monet$wdiff <- wdiff_val
+    roc_monet$wvar <- wvar_val
+    roc_monet$correlation <- corr_val
+    roc_monet <- prepare_for_log_plot(roc_monet)
     
-    # LAVA with habitat
-    roc_lava_habitat <- do.call(rbind, lapply(p_thresholds, function(thresh) {
+    # MONET with habitat
+    roc_monet_habitat <- do.call(rbind, lapply(p_thresholds, function(thresh) {
       calculate_rates_pvalue(scenario_data, "habitat_p_value", "habitat_p_value_Neutral", thresh)
     }))
-    roc_lava_habitat$method <- "LAVA w/ habitat"
-    roc_lava_habitat$scenario <- scenario_name
-    roc_lava_habitat$wdiff <- wdiff_val
-    roc_lava_habitat$wvar <- wvar_val
-    roc_lava_habitat$correlation <- corr_val
-    roc_lava_habitat <- prepare_for_log_plot(roc_lava_habitat)
+    roc_monet_habitat$method <- "MONET w/ habitat"
+    roc_monet_habitat$scenario <- scenario_name
+    roc_monet_habitat$wdiff <- wdiff_val
+    roc_monet_habitat$wvar <- wvar_val
+    roc_monet_habitat$correlation <- corr_val
+    roc_monet_habitat <- prepare_for_log_plot(roc_monet_habitat)
     
     # Driftsel on folded S using thresholds mapped from p via Normal
     roc_driftsel <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
@@ -213,8 +213,8 @@ process_population_structure <- function(pop_data, pop_name) {
     
     # AUC (uses original FPR, not FPR_plot)
     auc_qstfst   <- calculate_auc(roc_qstfst$FPR,   roc_qstfst$TPR)
-    auc_lava     <- calculate_auc(roc_lava$FPR,     roc_lava$TPR)
-    auc_lava_habitat <- calculate_auc(roc_lava_habitat$FPR, roc_lava_habitat$TPR)
+    auc_monet     <- calculate_auc(roc_monet$FPR,     roc_monet$TPR)
+    auc_monet_habitat <- calculate_auc(roc_monet_habitat$FPR, roc_monet_habitat$TPR)
     auc_driftsel <- calculate_auc(roc_driftsel$FPR, roc_driftsel$TPR)
     
     auc_results[[scenario_name]] <- data.frame(
@@ -224,12 +224,12 @@ process_population_structure <- function(pop_data, pop_name) {
       wvar = wvar_val,
       correlation = corr_val,
       QSTFST_AUC = auc_qstfst,
-      LAVA_AUC   = auc_lava,
-      LAVA_wHabitat_AUC = auc_lava_habitat,
+      MONET_AUC   = auc_monet,
+      MONET_wHabitat_AUC = auc_monet_habitat,
       Driftsel_AUC = auc_driftsel
     )
     
-    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_lava, roc_lava_habitat, roc_driftsel)
+    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_monet, roc_monet_habitat, roc_driftsel)
   }
   
   all_roc_data <- do.call(rbind, roc_data_list)
@@ -256,7 +256,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "LAVA" = "#F49D37", "LAVA w/ habitat" = "#053225")
+  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "MONET" = "#F49D37", "MONET w/ habitat" = "#053225")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -339,7 +339,7 @@ process_population_structure <- function(pop_data, pop_name) {
   # Legend
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "LAVA", "LAVA w/ habitat"),
+         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "MONET", "MONET w/ habitat"),
          ncol   = 2,
          lty    = c(linetypes, 0, rep(0, 4)),
          lwd    = c(rep(line_width, 3), NA, rep(NA, 4)),
@@ -395,12 +395,12 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
     fpr_qstfst <- sum(pop_data$p_value_QSTFST_Neutral < threshold, na.rm = TRUE) / 
                   sum(!is.na(pop_data$p_value_QSTFST_Neutral))
     
-    # LAVA
-    fpr_lava <- sum(pop_data$p_value_LAVA_Neutral < threshold, na.rm = TRUE) / 
-                sum(!is.na(pop_data$p_value_LAVA_Neutral))
+    # MONET
+    fpr_monet <- sum(pop_data$p_value_MONET_Neutral < threshold, na.rm = TRUE) / 
+                sum(!is.na(pop_data$p_value_MONET_Neutral))
     
-    # LAVA with habitat
-    fpr_lava_habitat <- sum(pop_data$habitat_p_value_Neutral < threshold, na.rm = TRUE) / 
+    # MONET with habitat
+    fpr_monet_habitat <- sum(pop_data$habitat_p_value_Neutral < threshold, na.rm = TRUE) / 
                         sum(!is.na(pop_data$habitat_p_value_Neutral))
     
     # Driftsel (using folded S threshold from p-value mapping)
@@ -412,10 +412,10 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
     cat(sprintf("Threshold = %.3f:\n", threshold))
     cat(sprintf("  QSTFST:          FPR = %.4f (ratio = %.2f)\n", 
                 fpr_qstfst, fpr_qstfst / threshold))
-    cat(sprintf("  LAVA:            FPR = %.4f (ratio = %.2f)\n", 
-                fpr_lava, fpr_lava / threshold))
-    cat(sprintf("  LAVA w/ habitat: FPR = %.4f (ratio = %.2f)\n", 
-                fpr_lava_habitat, fpr_lava_habitat / threshold))
+    cat(sprintf("  MONET:            FPR = %.4f (ratio = %.2f)\n", 
+                fpr_monet, fpr_monet / threshold))
+    cat(sprintf("  MONET w/ habitat: FPR = %.4f (ratio = %.2f)\n", 
+                fpr_monet_habitat, fpr_monet_habitat / threshold))
     cat(sprintf("  Driftsel:        FPR = %.4f (ratio = %.2f)\n", 
                 fpr_driftsel, fpr_driftsel / threshold))
     cat("\n")

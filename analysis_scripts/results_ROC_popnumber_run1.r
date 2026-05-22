@@ -140,13 +140,13 @@ process_scenario <- function(scenario_data, scenario_name) {
   roc_qstfst$scenario <- scenario_name
   roc_qstfst <- prepare_for_log_plot(roc_qstfst)
   
-  # LAVA
-  roc_lava <- do.call(rbind, lapply(p_thresholds, function(thresh) {
-    calculate_rates_pvalue(scenario_data, "p_value_LAVA", "p_value_LAVA_Neutral", thresh)
+  # MONET
+  roc_monet <- do.call(rbind, lapply(p_thresholds, function(thresh) {
+    calculate_rates_pvalue(scenario_data, "p_value_MONET", "p_value_MONET_Neutral", thresh)
   }))
-  roc_lava$method <- "LAVA"
-  roc_lava$scenario <- scenario_name
-  roc_lava <- prepare_for_log_plot(roc_lava)
+  roc_monet$method <- "MONET"
+  roc_monet$scenario <- scenario_name
+  roc_monet <- prepare_for_log_plot(roc_monet)
   
   # Driftsel on folded S using thresholds mapped from p via Normal
   roc_driftsel <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
@@ -162,17 +162,17 @@ process_scenario <- function(scenario_data, scenario_name) {
   
   # AUC (uses original FPR, not FPR_plot)
   auc_qstfst   <- calculate_auc(roc_qstfst$FPR, roc_qstfst$TPR)
-  auc_lava     <- calculate_auc(roc_lava$FPR, roc_lava$TPR)
+  auc_monet     <- calculate_auc(roc_monet$FPR, roc_monet$TPR)
   auc_driftsel <- calculate_auc(roc_driftsel$FPR, roc_driftsel$TPR)
   
   auc_data <- data.frame(
     scenario = scenario_name,
     QSTFST_AUC = auc_qstfst,
-    LAVA_AUC = auc_lava,
+    MONET_AUC = auc_monet,
     Driftsel_AUC = auc_driftsel
   )
   
-  roc_data <- rbind(roc_qstfst, roc_lava, roc_driftsel)
+  roc_data <- rbind(roc_qstfst, roc_monet, roc_driftsel)
   
   return(list(roc_data = roc_data, auc_data = auc_data))
 }
@@ -243,10 +243,10 @@ agg_png("results_December2025/ROC_PopNumber_Comparison_newSS.png",
     height = 3000, width = 3600, res = 300, pointsize = 10)
 
 # Colors and line types
-colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "LAVA" =  "#F49D37")
+colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "MONET" =  "#F49D37")
 linetypes <- c("9" = 2, "18" = 1)
 # Line widths: decreasing thickness so overlapping lines are visible
-linewidths <- c("Driftsel" = 6, "QSTFST" = 4, "LAVA" = 2)
+linewidths <- c("Driftsel" = 6, "QSTFST" = 4, "MONET" = 2)
 
 # Create layout: 1 row for title, 2 rows x 3 columns, last spot for legend
 # Layout: panel 1 = title (spans top row)
@@ -313,7 +313,7 @@ for (graph_id in 1:5) {
       next
     }
     
-    for (method in c("Driftsel", "QSTFST", "LAVA")) {
+    for (method in c("Driftsel", "QSTFST", "MONET")) {
       tmp_method <- tmp_np[tmp_np$method == method, ]
       
       if (nrow(tmp_method) == 0) {
@@ -343,7 +343,7 @@ for (graph_id in 1:5) {
 par(mar = c(2, 2, 2, 2))
 plot.new()
 legend("center",
-       legend = c("9 pops", "18 pops", "", "Driftsel", "QSTFST", "LAVA"),
+       legend = c("9 pops", "18 pops", "", "Driftsel", "QSTFST", "MONET"),
        lty = c(linetypes, 0, rep(1, 3)),
        lwd = c(rep(line_width, 2), NA, rep(line_width, 3)),
        col = c(rep("black", 2), NA, colours),

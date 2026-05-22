@@ -1,4 +1,4 @@
-"scenario","QSTFST_AUC","LAVA_AUC","Driftsel_AUC","graph_id","F1_number","graph_name"
+"scenario","QSTFST_AUC","MONET_AUC","Driftsel_AUC","graph_id","F1_number","graph_name"
 "Island Model (F1=25)",0.78298693943198,0.795000823271059,0.772237908588304,1,25,"Island Model"
 "Island Model (F1=50)",0.996881580255997,0.997928539422451,0.970010341261634,1,50,"Island Model"
 "SS - Cline (F1=25)",0.803338,0.526678,0.500132,2,25,"SS - Cline"

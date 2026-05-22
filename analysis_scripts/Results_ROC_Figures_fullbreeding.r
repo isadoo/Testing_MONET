@@ -9,7 +9,7 @@ library(stringr)
 #non-interactive graphics device for headless systems
 options(bitmapType = 'cairo')
 
-df <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_LAVA/raw_data/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
+df <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/raw_data/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
 
 #standardize wdiff values: convert 0.0 to 0, 10.0 to 10, keep 4p6 as is
 #on the new results it's in float (SS results)
@@ -151,16 +151,16 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_qstfst$correlation <- corr_val
     roc_qstfst <- prepare_for_log_plot(roc_qstfst)
     
-    # LAVA
-    roc_lava <- do.call(rbind, lapply(p_thresholds, function(thresh) {
-      calculate_rates_pvalue(scenario_data, "p_value_LAVA", "p_value_LAVA_Neutral", thresh)
+    # MONET
+    roc_monet <- do.call(rbind, lapply(p_thresholds, function(thresh) {
+      calculate_rates_pvalue(scenario_data, "p_value_MONET", "p_value_MONET_Neutral", thresh)
     }))
-    roc_lava$method <- "LAVA"
-    roc_lava$scenario <- scenario_name
-    roc_lava$wdiff <- wdiff_val
-    roc_lava$wvar <- wvar_val
-    roc_lava$correlation <- corr_val
-    roc_lava <- prepare_for_log_plot(roc_lava)
+    roc_monet$method <- "MONET"
+    roc_monet$scenario <- scenario_name
+    roc_monet$wdiff <- wdiff_val
+    roc_monet$wvar <- wvar_val
+    roc_monet$correlation <- corr_val
+    roc_monet <- prepare_for_log_plot(roc_monet)
     
     # Driftsel on folded S using thresholds mapped from p via Normal
     roc_driftsel <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
@@ -179,7 +179,7 @@ process_population_structure <- function(pop_data, pop_name) {
     
     # AUC (uses original FPR, not FPR_plot)
     auc_qstfst   <- calculate_auc(roc_qstfst$FPR,   roc_qstfst$TPR)
-    auc_lava     <- calculate_auc(roc_lava$FPR,     roc_lava$TPR)
+    auc_monet     <- calculate_auc(roc_monet$FPR,     roc_monet$TPR)
     auc_driftsel <- calculate_auc(roc_driftsel$FPR, roc_driftsel$TPR)
     
     auc_results[[scenario_name]] <- data.frame(
@@ -189,11 +189,11 @@ process_population_structure <- function(pop_data, pop_name) {
       wvar = wvar_val,
       correlation = corr_val,
       QSTFST_AUC = auc_qstfst,
-      LAVA_AUC   = auc_lava,
+      MONET_AUC   = auc_monet,
       Driftsel_AUC = auc_driftsel
     )
     
-    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_lava, roc_driftsel)
+    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_monet, roc_driftsel)
   }
   
   all_roc_data <- do.call(rbind, roc_data_list)
@@ -220,7 +220,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "LAVA" =  "#F49D37")
+  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "MONET" =  "#F49D37")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -303,7 +303,7 @@ process_population_structure <- function(pop_data, pop_name) {
   # Legend
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "Driftsel", "QSTFST", "LAVA"),
+         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "Driftsel", "QSTFST", "MONET"),
          ncol   = 2,
          lty    = c(linetypes, rep(0, 3)),
          lwd    = c(rep(line_width, 3), rep(NA, 3)),
