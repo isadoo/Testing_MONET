@@ -211,6 +211,7 @@ for (tid in trait_ids) {
       warmup = 4000,
       thin   = 2,
       control = list(adapt_delta = 0.99, max_treedepth = 15),
+      prior = c(prior(exponential(1), class = sigma), prior(exponential(1), class = sd)),
       save_full_model = FALSE
     ),
     error = function(e) {
