@@ -10,39 +10,8 @@ library(stringr)
 #non-interactive graphics device for headless systems
 options(bitmapType = 'cairo')
 
-# Read the main data file with MONET, QSTFST, and Driftsel
-df_main <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/results_tables/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
-
-# Read the habitat data file
-df_habitat <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/SALSA_nov/MONET_WITH_HABITAT_RESULTS/monet_with_habitat_combined.tsv", header = TRUE, sep = "\t")
-
-#standardize wdiff values BEFORE merge: convert 0.0 to 0, 10.0 to 10, keep 4p6 as is
-df_main$wdiff <- as.character(df_main$wdiff) 
-df_main$wdiff[df_main$wdiff == "0.0"] <- "0"
-df_main$wdiff[df_main$wdiff == "10.0"] <- "10"
-
-df_habitat$wdiff <- as.character(df_habitat$wdiff)
-df_habitat$wdiff[df_habitat$wdiff == "0.0"] <- "0"
-df_habitat$wdiff[df_habitat$wdiff == "10.0"] <- "10"
-
-#standardize correlation values BEFORE merge: add underscores to habitat data
-df_habitat$correlation <- gsub("^cline$", "_cline", df_habitat$correlation)
-df_habitat$correlation <- gsub("^sine$", "_sine", df_habitat$correlation)
-df_habitat$correlation <- gsub("^grouped$", "_grouped", df_habitat$correlation)
-df_habitat$correlation <- gsub("^swapped$", "_swapped", df_habitat$correlation)
-df_main$correlation <- gsub("^cline$", "_cline", df_main$correlation)
-df_main$correlation <- gsub("^sine$", "_sine", df_main$correlation)
-df_main$correlation <- gsub("^grouped$", "_grouped", df_main$correlation)
-df_main$correlation <- gsub("^swapped$", "_swapped", df_main$correlation)   
-# Select only the habitat p-value columns from the habitat file
-df_habitat_subset <- df_habitat %>%
-  select( model, num_pops, wdiff, wvar, correlation, replicate_number,
-         habitat_p_value, habitat_p_value_Neutral)
-
-# Merge the two datasets
-df <- df_main %>%
-  left_join(df_habitat_subset, 
-            by = c("model", "num_pops", "wdiff", "wvar", "correlation", "replicate_number"))
+df <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/raw_data/full_breeding_combined_review2026.tsv", header = TRUE, sep = "\t")
+df$wdiff <- as.character(df$wdiff)
 
 #Split my data by population structure based on model + num_pops
 im18         <- df[df$model == "IM" & df$num_pops == 18, ]
@@ -73,8 +42,8 @@ label_cex  <- 1.5
 main_cex   <- 2.35
 
 ## ------------------ THRESHOLDS ------------------
-# Keep the original p-threshold grid
-p_thresholds <- seq(0.0001, 1, by = 0.001)
+#p-threshold grid
+p_thresholds <- sort(unique(c(10^seq(-7, -4, length.out = 1000), seq(0.0001, 1, by = 0.001))))
 
 # Map two-tailed p-values to folded-S thresholds via Normal on |S-0.5|
 s_sd <- 0.10
@@ -152,12 +121,12 @@ process_population_structure <- function(pop_data, pop_name) {
     
     if (is.na(corr_val)) {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val)
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val, ]
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val), ]
     } else {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val, "_corr_", gsub("_", "", corr_val))
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val &
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val &
                                   pop_data$wvar  == wvar_val &
-                                  pop_data$correlation == corr_val, ]
+                                  pop_data$correlation == corr_val), ]
     }
     
     cat("Processing:", scenario_name, "\n")
@@ -210,12 +179,27 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_driftsel$wvar <- wvar_val
     roc_driftsel$correlation <- corr_val
     roc_driftsel <- prepare_for_log_plot(roc_driftsel)
-    
+
+    roc_htest <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
+      calculate_rates_svalue_folded(
+        scenario_data,
+        "H_value_Driftsel", "H_value_Driftsel_Neutral",
+        th_sfold
+      )
+    }))
+    roc_htest$method <- "H-test"
+    roc_htest$scenario <- scenario_name
+    roc_htest$wdiff <- wdiff_val
+    roc_htest$wvar <- wvar_val
+    roc_htest$correlation <- corr_val
+    roc_htest <- prepare_for_log_plot(roc_htest)
+
     # AUC (uses original FPR, not FPR_plot)
     auc_qstfst   <- calculate_auc(roc_qstfst$FPR,   roc_qstfst$TPR)
     auc_monet     <- calculate_auc(roc_monet$FPR,     roc_monet$TPR)
     auc_monet_habitat <- calculate_auc(roc_monet_habitat$FPR, roc_monet_habitat$TPR)
     auc_driftsel <- calculate_auc(roc_driftsel$FPR, roc_driftsel$TPR)
+    auc_htest <- calculate_auc(roc_htest$FPR, roc_htest$TPR)
     
     auc_results[[scenario_name]] <- data.frame(
       population_structure = pop_name,
@@ -226,10 +210,11 @@ process_population_structure <- function(pop_data, pop_name) {
       QSTFST_AUC = auc_qstfst,
       MONET_AUC   = auc_monet,
       MONET_wHabitat_AUC = auc_monet_habitat,
-      Driftsel_AUC = auc_driftsel
+      Driftsel_AUC = auc_driftsel,
+      Htest_AUC = auc_htest
     )
-    
-    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_monet, roc_monet_habitat, roc_driftsel)
+
+    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_monet, roc_monet_habitat, roc_driftsel, roc_htest)
   }
   
   all_roc_data <- do.call(rbind, roc_data_list)
@@ -241,6 +226,7 @@ process_population_structure <- function(pop_data, pop_name) {
   if (six.panels) {
     png(paste0("Newlog_", pop_name, "_whabitat_log.png"),
         height = 4500, width = 3000, res = 300, pointsize = 10)
+    dev.control(displaylist = "enable")
     layout(matrix(c(1, 1, 2, 7, 3, 4, 5, 6), byrow = TRUE, ncol = 2),
            heights = c(1/20, 19/60, 19/60, 19/60), widths = c(1/2, 1/2))
     par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
@@ -249,6 +235,7 @@ process_population_structure <- function(pop_data, pop_name) {
   } else {
     png(paste0("Newlog_", pop_name, "_whabitat_log.png"),
         height = 3000, width = 3000, res = 300, pointsize = 10)
+    dev.control(displaylist = "enable")
     layout(matrix(c(1, 1, 2, 5, 3, 4), byrow = TRUE, ncol = 2),
            heights = c(1/10, 9/20, 9/20), widths = c(1/2, 1/2))
     par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
@@ -256,7 +243,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#62929E" , "MONET" = "#F49D37", "MONET w/ habitat" = "#053225")
+  colours   <- c("Driftsel" = "#6E0D25" , "QSTFST" = "#F2C14E" , "MONET" = "#7FB7E6", "MONET w/ habitat" = "#053225", "H-test" = "#D1495B")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -339,16 +326,19 @@ process_population_structure <- function(pop_data, pop_name) {
   # Legend
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "Driftsel", "QSTFST", "MONET", "MONET w/ habitat"),
+         legend = c(paste0(omega_chr, " = ", c(10, 22, 50)), "", "", "Driftsel", "QSTFST", "MONET", "MONET w/ habitat", "H-test"),
          ncol   = 2,
-         lty    = c(linetypes, 0, rep(0, 4)),
-         lwd    = c(rep(line_width, 3), NA, rep(NA, 4)),
-         pch    = c(rep(NA, 3), NA, rep(15, 4)),
-         col    = c(rep("black", 3), "white", colours),
+         lty    = c(linetypes, 0, 0, rep(0, 5)),
+         lwd    = c(rep(line_width, 3), NA, NA, rep(NA, 5)),
+         pch    = c(rep(NA, 3), NA, NA, rep(15, 5)),
+         col    = c(rep("black", 3), "white", "white", colours),
          cex = 2, bty = "n")
-  
+
+  dev.copy(cairo_pdf, paste0("Newlog_", pop_name, "_whabitat_log.pdf"),
+           width = 10, height = if (six.panels) 15 else 10, pointsize = 10)
   dev.off()
-  
+  dev.off()
+
   return(list(roc_data = all_roc_data, auc_data = all_auc_data))
 }
 
@@ -406,9 +396,12 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
     # Driftsel (using folded S threshold from p-value mapping)
     s_threshold <- S_fold_from_p(threshold, s_sd = s_sd)
     S_neu_fold <- pmin(pop_data$S_value_Driftsel_Neutral, 1 - pop_data$S_value_Driftsel_Neutral)
-    fpr_driftsel <- sum(S_neu_fold < s_threshold, na.rm = TRUE) / 
+    fpr_driftsel <- sum(S_neu_fold < s_threshold, na.rm = TRUE) /
                     sum(!is.na(S_neu_fold))
-    
+    H_neu_fold <- pmin(pop_data$H_value_Driftsel_Neutral, 1 - pop_data$H_value_Driftsel_Neutral)
+    fpr_htest <- sum(H_neu_fold < s_threshold, na.rm = TRUE) /
+                 sum(!is.na(H_neu_fold))
+
     cat(sprintf("Threshold = %.3f:\n", threshold))
     cat(sprintf("  QSTFST:          FPR = %.4f (ratio = %.2f)\n", 
                 fpr_qstfst, fpr_qstfst / threshold))
@@ -418,7 +411,16 @@ for (pop_struct in list(list(data = im18, name = "IM_18"),
                 fpr_monet_habitat, fpr_monet_habitat / threshold))
     cat(sprintf("  Driftsel:        FPR = %.4f (ratio = %.2f)\n", 
                 fpr_driftsel, fpr_driftsel / threshold))
+    cat(sprintf("  H-test:          FPR = %.4f (ratio = %.2f)\n",
+                fpr_htest, fpr_htest / threshold))
     cat("\n")
     
   }  # End inner for loop (threshold)
+
+  for (col in c("S_value_Driftsel_Neutral", "H_value_Driftsel_Neutral")) {
+    x <- pop_data[[col]]
+    cat(sprintf("  %s < 0.05 or > 0.95: FPR = %.4f\n", col,
+                sum(x < 0.05 | x > 0.95, na.rm = TRUE) / sum(!is.na(x))))
+  }
+  cat("\n")
 }  # End outer for loop (pop_struct)

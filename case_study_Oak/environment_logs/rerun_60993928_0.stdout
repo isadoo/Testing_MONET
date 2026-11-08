@@ -1,0 +1,711 @@
+Rerun task 0: species=faginea garden=GH
+STRICT MCMC: warmup=4000, iter=12000, thin=4, adapt_delta=0.99
+==== monet logAV rerun (STRICT settings) ====
+species : faginea 
+garden  : GH 
+basedir : /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study 
+toolsdir: /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/tools 
+outdir  : /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study/results_logAV_env 
+
+MCMC settings: warmup=4000, iter=12000, thin=4
+               adapt_delta=0.99, max_treedepth=15
+
+Found 5 trait(s) needing rerun:
+   AGR.TreatWW, FvFmprima.TreatD, NPQ.TreatWW, RGR.TreatD, Thickness.TreatWW 
+
+---- trait: AGR.TreatWW (rerun with strict settings) ----
+Using formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+Total rows: 382  ; complete rows used: 382 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.000181 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.81 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 90.513 seconds (Warm-up)
+Chain 1:                113.556 seconds (Sampling)
+Chain 1:                204.069 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.000126 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.26 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 103.213 seconds (Warm-up)
+Chain 2:                132.574 seconds (Sampling)
+Chain 2:                235.787 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 0.000129 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.29 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 84.745 seconds (Warm-up)
+Chain 3:                211.012 seconds (Sampling)
+Chain 3:                295.757 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.000133 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.33 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 84.486 seconds (Warm-up)
+Chain 4:                209.165 seconds (Sampling)
+Chain 4:                293.651 seconds (Total)
+Chain 4: 
+
+---- Model Summary ----
+ Family: gaussian 
+  Links: mu = identity 
+Formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 382) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 4;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 382) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.33      0.14     0.04     0.61 1.02      301       94
+
+~pop (Number of levels: 8) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.76      1.63     0.15     6.18 1.00     6403     6113
+
+Regression Coefficients:
+            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept       0.58      0.15     0.29     0.87 1.00     5885     5854
+PC_climate1    -0.14      0.02    -0.18    -0.09 1.00     5971     5110
+PC_climate2    -0.07      0.02    -0.11    -0.04 1.00     4484     3614
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.74      0.13     0.41     0.92 1.02      282       92
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+  log_ratio = 2.882  [-1.796, 7.835]  p = 0.165
+  PC1 beta  = NA  p = NA   PC2 beta = NA  p = NA
+  Diagnostics: max_rhat=1.018, min_bulk_ess=NA, min_tail_ess=NA
+
+---- trait: FvFmprima.TreatD (rerun with strict settings) ----
+Using formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+Total rows: 316  ; complete rows used: 316 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.000109 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.09 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 56.261 seconds (Warm-up)
+Chain 1:                89.645 seconds (Sampling)
+Chain 1:                145.906 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 9.5e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.95 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 54.331 seconds (Warm-up)
+Chain 2:                87.704 seconds (Sampling)
+Chain 2:                142.035 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 9.5e-05 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.95 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 51.183 seconds (Warm-up)
+Chain 3:                85.892 seconds (Sampling)
+Chain 3:                137.075 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 9.7e-05 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.97 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 49.135 seconds (Warm-up)
+Chain 4:                89.736 seconds (Sampling)
+Chain 4:                138.871 seconds (Total)
+Chain 4: 
+
+---- Model Summary ----
+ Family: gaussian 
+  Links: mu = identity 
+Formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 316) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 4;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 316) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.18      0.12     0.01     0.45 1.00     1967     2522
+
+~pop (Number of levels: 8) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.15      1.36     0.02     4.89 1.00     7105     7518
+
+Regression Coefficients:
+            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept      -0.10      0.14    -0.39     0.17 1.00     7731     7810
+PC_climate1     0.08      0.02     0.03     0.13 1.00     7842     7600
+PC_climate2    -0.05      0.02    -0.08    -0.01 1.00     7571     7417
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.94      0.07     0.78     1.05 1.00     2600     2751
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+  log_ratio = 3.040  [-4.079, 10.215]  p = 0.330
+  PC1 beta  = NA  p = NA   PC2 beta = NA  p = NA
+  Diagnostics: max_rhat=1.003, min_bulk_ess=NA, min_tail_ess=NA
+
+---- trait: NPQ.TreatWW (rerun with strict settings) ----
+Using formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+Total rows: 367  ; complete rows used: 367 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.00013 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.3 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 69.686 seconds (Warm-up)
+Chain 1:                170.317 seconds (Sampling)
+Chain 1:                240.003 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.000117 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.17 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 77.194 seconds (Warm-up)
+Chain 2:                217.496 seconds (Sampling)
+Chain 2:                294.69 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 0.000113 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.13 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 78.409 seconds (Warm-up)
+Chain 3:                139.284 seconds (Sampling)
+Chain 3:                217.693 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.000114 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.14 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 72.357 seconds (Warm-up)
+Chain 4:                108.584 seconds (Sampling)
+Chain 4:                180.941 seconds (Total)
+Chain 4: 
+
+---- Model Summary ----
+ Family: gaussian 
+  Links: mu = identity 
+Formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 367) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 4;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 367) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.40      0.15     0.06     0.66 1.01      687      808
+
+~pop (Number of levels: 8) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.24      1.40     0.03     5.08 1.00     6775     6621
+
+Regression Coefficients:
+            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept      -0.08      0.15    -0.40     0.19 1.00     7085     7385
+PC_climate1    -0.00      0.02    -0.05     0.05 1.00     7369     7403
+PC_climate2     0.00      0.02    -0.04     0.04 1.00     5851     7463
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.83      0.13     0.54     1.02 1.01      688      806
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+  log_ratio = 1.276  [-5.265, 6.419]  p = 0.574
+  PC1 beta  = NA  p = NA   PC2 beta = NA  p = NA
+  Diagnostics: max_rhat=1.009, min_bulk_ess=NA, min_tail_ess=NA
+
+---- trait: RGR.TreatD (rerun with strict settings) ----
+Using formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+Total rows: 369  ; complete rows used: 369 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.000123 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.23 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 129.907 seconds (Warm-up)
+Chain 1:                261.24 seconds (Sampling)
+Chain 1:                391.147 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.000117 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.17 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 93.866 seconds (Warm-up)
+Chain 2:                1632.22 seconds (Sampling)
+Chain 2:                1726.09 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 0.000116 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.16 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 99.73 seconds (Warm-up)
+Chain 3:                283.853 seconds (Sampling)
+Chain 3:                383.583 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.000117 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.17 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 105.422 seconds (Warm-up)
+Chain 4:                127.969 seconds (Sampling)
+Chain 4:                233.391 seconds (Total)
+Chain 4: 
+
+---- Model Summary ----
+ Family: gaussian 
+  Links: mu = identity 
+Formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 369) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 4;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 369) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.62      0.11     0.38     0.79 1.23       14       23
+
+~pop (Number of levels: 8) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.36      1.50     0.04     5.38 1.00     3354     6128
+
+Regression Coefficients:
+            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept       0.18      0.17    -0.13     0.54 1.00     1163     1389
+PC_climate1    -0.05      0.03    -0.10     0.01 1.01     1249     1553
+PC_climate2     0.00      0.02    -0.05     0.05 1.01     1036      873
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.50      0.23     0.03     0.86 1.31       11       16
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+  log_ratio = 0.485  [-5.371, 4.539]  p = 0.727
+  PC1 beta  = NA  p = NA   PC2 beta = NA  p = NA
+  Diagnostics: max_rhat=1.309, min_bulk_ess=NA, min_tail_ess=NA
+
+---- trait: Thickness.TreatWW (rerun with strict settings) ----
+Using formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+Total rows: 377  ; complete rows used: 377 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.000156 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.56 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 364.522 seconds (Warm-up)
+Chain 1:                101.856 seconds (Sampling)
+Chain 1:                466.378 seconds (Total)
+Chain 1: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+Chain 2: 
+Chain 2: Gradient evaluation took 0.000129 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.29 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 89.059 seconds (Warm-up)
+Chain 2:                175.167 seconds (Sampling)
+Chain 2:                264.226 seconds (Total)
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 3: 
+Chain 3: Gradient evaluation took 0.00012 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.2 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 97.126 seconds (Warm-up)
+Chain 3:                431.789 seconds (Sampling)
+Chain 3:                528.915 seconds (Total)
+Chain 3: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 4: 
+Chain 4: Gradient evaluation took 0.000119 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.19 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 93.807 seconds (Warm-up)
+Chain 4:                135.252 seconds (Sampling)
+Chain 4:                229.059 seconds (Total)
+Chain 4: 
+
+---- Model Summary ----
+ Family: gaussian 
+  Links: mu = identity 
+Formula: Y ~ 1 + PC_climate1 + PC_climate2 + (1 | gr(pop, cov = two.Theta.P)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 377) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 4;
+         total post-warmup draws = 8000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 377) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.51      0.13     0.23     0.72 1.01      175      246
+
+~pop (Number of levels: 8) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.14      1.32     0.03     4.74 1.00     6162     6512
+
+Regression Coefficients:
+            Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept      -0.11      0.14    -0.38     0.19 1.00     4337     5149
+PC_climate1     0.14      0.02     0.09     0.19 1.00     3815     4448
+PC_climate2    -0.04      0.02    -0.08     0.01 1.00     4358     4165
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     0.60      0.19     0.18     0.89 1.02      164      179
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+
+  log_ratio = 0.371  [-6.013, 4.941]  p = 0.800
+  PC1 beta  = NA  p = NA   PC2 beta = NA  p = NA
+  Diagnostics: max_rhat=1.016, min_bulk_ess=NA, min_tail_ess=NA
+
+Wrote rerun summary: /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study/results_logAV_env/summary_logAV_env_RERUN_faginea_GH.csv 

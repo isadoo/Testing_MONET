@@ -2,7 +2,7 @@
 # The current script is the one related to number of individuals in F1 population.
 # We will in all population structure randomly pick 25 F1 individuals per population
 # The idea is to simulate that there was a high mortality in the experiment for example.
-# WE ONLY RUN THIS FOR wo = 10, wvar = 10 (both correlations)
+# Used in the paper for wdiff 4.6, wvar 10 (both correlations)
 
 #setwd("Chapter2")
 source("../../Package/counting_blocks_matrix.r")

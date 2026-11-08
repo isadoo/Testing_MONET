@@ -1,10 +1,10 @@
 # This script is part of the breeding tests with simulated data we will run
 # The current script is the one related to number of subpopulations.
 # We will select half of the subpopulations 
-# We will select subpopulations 4 to 12 if Population_structure == "hierarchica"
-# We will selection subpopulations 6 - 14 if Population_structure == "SS".
+# We will select subpopulations 4 to 12 if Population_structure == "SS"
+# We will select subpopulations 6 to 14 if Population_structure == "hierarchical"
 # WE WILL NOT RUN THIS FOR ISLAND MODEL
-# WE ONLY RUN THIS FOR wo = 10, wvar = 10 (both correlations)
+# Used in the paper for wdiff 4.6, wvar 10 (both correlations)
 
 #setwd("Chapter2")
 source("../../Package/counting_blocks_matrix.r")

@@ -1,0 +1,3 @@
+Compiling Stan program...
+Start sampling
+slurmstepd: error: *** JOB 62192784 ON dna055 CANCELLED AT 2026-07-13T22:02:01 DUE TO TIME LIMIT ***

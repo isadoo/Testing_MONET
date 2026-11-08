@@ -1,0 +1,7 @@
+Warning message:
+Dropping 5 population(s) from analysis (no ThetaP): CUE, RET, TAL, VIL, ZAF 
+Compiling Stan program...
+Start sampling
+Compiling Stan program...
+Start sampling
+There were 17 warnings (use warnings() to see them)

@@ -1,46 +1,14 @@
 ## ------------------ SETUP ------------------
-#setwd(dirname(rstudioapi::getSourceEditorContext()$path))
-#setwd("/home/isa/Chapter2/sims_testing/")
+setwd("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/graphing_results")
 
 library(pROC)
 library(ggplot2)
 library(dplyr)
 library(stringr)
 options(bitmapType = "cairo")
-# Read the main data file with MONET, QSTFST, and Driftsel
-df_main <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/raw_data/3methods_full_breeding_combined_november.tsv", header = TRUE, sep = "\t")
 
-# Read the habitat data file
-df_habitat <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/raw_data/MONET_with_habitat_combined.tsv", header = TRUE, sep = "\t")
-
-# Standardize wdiff values BEFORE merge
-df_main$wdiff <- as.character(df_main$wdiff)
-df_main$wdiff[df_main$wdiff == "0.0"] <- "0"
-df_main$wdiff[df_main$wdiff == "10.0"] <- "10"
-
-df_habitat$wdiff <- as.character(df_habitat$wdiff)
-df_habitat$wdiff[df_habitat$wdiff == "0.0"] <- "0"
-df_habitat$wdiff[df_habitat$wdiff == "10.0"] <- "10"
-
-# Standardize correlation values BEFORE merge
-df_habitat$correlation <- gsub("^cline$", "_cline", df_habitat$correlation)
-df_habitat$correlation <- gsub("^sine$", "_sine", df_habitat$correlation)
-df_habitat$correlation <- gsub("^grouped$", "_grouped", df_habitat$correlation)
-df_habitat$correlation <- gsub("^swapped$", "_swapped", df_habitat$correlation)
-df_main$correlation <- gsub("^cline$", "_cline", df_main$correlation)
-df_main$correlation <- gsub("^sine$", "_sine", df_main$correlation)
-df_main$correlation <- gsub("^grouped$", "_grouped", df_main$correlation)
-df_main$correlation <- gsub("^swapped$", "_swapped", df_main$correlation)
-
-# Select only the habitat p-value columns from the habitat file
-df_habitat_subset <- df_habitat %>%
-  select(model, num_pops, wdiff, wvar, correlation, replicate_number,
-         habitat_p_value, habitat_p_value_Neutral)
-
-# Merge the two datasets
-df <- df_main %>%
-  left_join(df_habitat_subset,
-            by = c("model", "num_pops", "wdiff", "wvar", "correlation", "replicate_number"))
+df <- read.csv("/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/raw_data/full_breeding_combined_review2026.tsv", header = TRUE, sep = "\t")
+df$wdiff <- as.character(df$wdiff)
 
 #Split by population structure based on model + num_pops
 im18         <- df[df$model == "IM" & df$num_pops == 18, ]
@@ -74,7 +42,7 @@ main_cex   <- 1.35
 
 ## ------------------ THRESHOLDS ------------------
 #p-threshold grid 
-p_thresholds <- seq(0.0001, 1, by = 0.001)
+p_thresholds <- sort(unique(c(10^seq(-7, -4, length.out = 1000), seq(0.0001, 1, by = 0.001))))
 
 # Map two-tailed p-values to folded-S thresholds via Normal on |S-0.5|
 s_sd <- 0.10
@@ -151,12 +119,12 @@ process_population_structure <- function(pop_data, pop_name) {
     
     if (is.na(corr_val)) {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val)
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val, ]
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val), ]
     } else {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val, "_corr_", gsub("_", "", corr_val))
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val &
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val &
                                   pop_data$wvar  == wvar_val &
-                                  pop_data$correlation == corr_val, ]
+                                  pop_data$correlation == corr_val), ]
     }
     
     cat("Processing:", scenario_name, "\n")
@@ -200,6 +168,21 @@ process_population_structure <- function(pop_data, pop_name) {
     roc_driftsel$correlation <- corr_val
     roc_driftsel <- prepare_for_linear_plot(roc_driftsel)
     
+    roc_htest <- do.call(rbind, lapply(s_fold_thresholds, function(th_sfold) {
+      calculate_rates_svalue_folded(
+        scenario_data,
+        "H_value_Driftsel", "H_value_Driftsel_Neutral",
+        th_sfold
+      )
+    }))
+    roc_htest$threshold <- 2 * roc_htest$threshold
+    roc_htest$method <- "H-test"
+    roc_htest$scenario <- scenario_name
+    roc_htest$wdiff <- wdiff_val
+    roc_htest$wvar <- wvar_val
+    roc_htest$correlation <- corr_val
+    roc_htest <- prepare_for_linear_plot(roc_htest)
+    
     #MONET w/ habitat
     roc_habitat <- do.call(rbind, lapply(p_thresholds, function(thresh) {
       calculate_rates_pvalue(scenario_data, "habitat_p_value", "habitat_p_value_Neutral", thresh)
@@ -216,6 +199,7 @@ process_population_structure <- function(pop_data, pop_name) {
     auc_MONET     <- calculate_auc(roc_MONET$FPR,     roc_MONET$TPR)
     auc_driftsel <- calculate_auc(roc_driftsel$FPR, roc_driftsel$TPR)
     auc_habitat  <- calculate_auc(roc_habitat$FPR,  roc_habitat$TPR)
+    auc_htest    <- calculate_auc(roc_htest$FPR,    roc_htest$TPR)
     
     auc_results[[scenario_name]] <- data.frame(
       population_structure = pop_name,
@@ -226,10 +210,11 @@ process_population_structure <- function(pop_data, pop_name) {
       QSTFST_AUC = auc_qstfst,
       MONET_AUC   = auc_MONET,
       Driftsel_AUC = auc_driftsel,
-      Habitat_AUC = auc_habitat
+      Habitat_AUC = auc_habitat,
+      Htest_AUC = auc_htest
     )
     
-    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_MONET, roc_driftsel, roc_habitat)
+    roc_data_list[[scenario_name]] <- rbind(roc_qstfst, roc_MONET, roc_driftsel, roc_habitat, roc_htest)
   }
   
   all_roc_data <- do.call(rbind, roc_data_list)
@@ -258,7 +243,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25", "QSTFST" = "#F49D37", "MONET" = "#62929E", "MONET w/ environment" = "#053225")
+  colours   <- c("Driftsel" = "#6E0D25", "QSTFST" = "#F2C14E", "MONET" = "#7FB7E6", "MONET w/ environment" = "#053225", "H-test" = "#D1495B")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -344,11 +329,11 @@ process_population_structure <- function(pop_data, pop_name) {
  
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c("Driftsel", "QSTFST", "MONET", "MONET w/ environment", paste0(omega_chr, " = ", c(10, 22, 50))),
+         legend = c("Driftsel", "QSTFST", "MONET", "MONET w/ environment", "H-test", paste0(omega_chr, " = ", c(10, 22, 50))),
          ncol   = 2,
-         lty    = c(rep(0, 4), linetypes),
-         lwd    = c(rep(NA, 4), rep(line_width, 3)),
-         pch    = c(rep(15, 4), rep(NA, 3)),
+         lty    = c(rep(0, 5), linetypes),
+         lwd    = c(rep(NA, 5), rep(line_width, 3)),
+         pch    = c(rep(15, 5), rep(NA, 3)),
          col    = c(colours, rep("black", 3)),
          cex = 2, bty = "n")
   
@@ -373,7 +358,7 @@ process_population_structure <- function(pop_data, pop_name) {
     text(1, 1, pretty_pop(pop_name), cex = 3)
   }
   
-  colours   <- c("Driftsel" = "#6E0D25", "QSTFST" = "#F49D37", "MONET" = "#62929E", "MONET w/ environment" = "#053225")
+  colours   <- c("Driftsel" = "#6E0D25", "QSTFST" = "#F2C14E", "MONET" = "#7FB7E6", "MONET w/ environment" = "#053225", "H-test" = "#D1495B")
   linetypes <- c("10" = 1, "22" = 2, "50" = 3)
   
   for (wdiff_val in levels(all_roc_data$wdiff)) {
@@ -458,11 +443,11 @@ process_population_structure <- function(pop_data, pop_name) {
   
   plot(1, 1, type = "n", bty = "n", axes = FALSE, xlab = "", ylab = "")
   legend("center",
-         legend = c("Driftsel", "QSTFST", "MONET", "MONET w/ environment", paste0(omega_chr, " = ", c(10, 22, 50))),
+         legend = c("Driftsel", "QSTFST", "MONET", "MONET w/ environment", "H-test", paste0(omega_chr, " = ", c(10, 22, 50))),
          ncol   = 2,
-         lty    = c(rep(0, 4), linetypes),
-         lwd    = c(rep(NA, 4), rep(line_width, 3)),
-         pch    = c(rep(15, 4), rep(NA, 3)),
+         lty    = c(rep(0, 5), linetypes),
+         lwd    = c(rep(NA, 5), rep(line_width, 3)),
+         pch    = c(rep(15, 5), rep(NA, 3)),
          col    = c(colours, rep("black", 3)),
          cex = 2, bty = "n")
   
@@ -500,12 +485,12 @@ process_population_structure_with_sd <- function(pop_data, pop_name) {
     
     if (is.na(corr_val)) {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val)
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val, ]
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val & pop_data$wvar == wvar_val), ]
     } else {
       scenario_name <- paste0("wdiff_", wdiff_val, "_wvar_", wvar_val, "_corr_", gsub("_", "", corr_val))
-      scenario_data <- pop_data[pop_data$wdiff == wdiff_val &
+      scenario_data <- pop_data[which(pop_data$wdiff == wdiff_val &
                                   pop_data$wvar  == wvar_val &
-                                  pop_data$correlation == corr_val, ]
+                                  pop_data$correlation == corr_val), ]
     }
     
     cat("Processing (SD version):", scenario_name, "\n")
@@ -859,13 +844,14 @@ diagnostic_fpr <- function(pop_data, pop_name) {
   for (i in seq_len(nrow(scenarios))) {
     wd <- scenarios$wdiff[i]; wv <- scenarios$wvar[i]; cr <- scenarios$correlation[i]
     if (is.na(cr)) {
-      sd_ <- pop_data[pop_data$wdiff == wd & pop_data$wvar == wv, ]
+      sd_ <- pop_data[which(pop_data$wdiff == wd & pop_data$wvar == wv), ]
     } else {
-      sd_ <- pop_data[pop_data$wdiff == wd & pop_data$wvar == wv & pop_data$correlation == cr, ]
+      sd_ <- pop_data[which(pop_data$wdiff == wd & pop_data$wvar == wv & pop_data$correlation == cr), ]
     }
     if (!nrow(sd_)) next
     fpr_p <- function(col, th) mean(sd_[[col]] < th, na.rm = TRUE)
     s_neu_fold <- pmin(sd_$S_value_Driftsel_Neutral, 1 - sd_$S_value_Driftsel_Neutral)
+    h_neu_fold <- pmin(sd_$H_value_Driftsel_Neutral, 1 - sd_$H_value_Driftsel_Neutral)
     out[[length(out) + 1]] <- data.frame(
       pop                = pop_name,
       wdiff              = wd, wvar = wv, correlation = cr,
@@ -873,10 +859,12 @@ diagnostic_fpr <- function(pop_data, pop_name) {
       MONET_FPR_p05      = fpr_p("p_value_MONET_Neutral",    0.05),
       Habitat_FPR_p05    = fpr_p("habitat_p_value_Neutral",  0.05),
       Driftsel_FPR_sf025 = mean(s_neu_fold < 0.025, na.rm = TRUE),
+      Htest_FPR_hf025    = mean(h_neu_fold < 0.025, na.rm = TRUE),
       QSTFST_FPR_p01     = fpr_p("p_value_QSTFST_Neutral",  0.01),
       MONET_FPR_p01      = fpr_p("p_value_MONET_Neutral",    0.01),
       Habitat_FPR_p01    = fpr_p("habitat_p_value_Neutral",  0.01),
       Driftsel_FPR_sf005 = mean(s_neu_fold < 0.005, na.rm = TRUE),
+      Htest_FPR_hf005    = mean(h_neu_fold < 0.005, na.rm = TRUE),
       n                  = nrow(sd_)
     )
   }
@@ -891,8 +879,7 @@ diag_all <- rbind(
   diagnostic_fpr(hierarchical, "Hierarchical")
 )
 print(diag_all, row.names = FALSE, digits = 3)
-write.csv(diag_all, "diagnostic_FPR_at_nominal_thresholds.csv", row.names = FALSE)
-cat("\nSaved: diagnostic_FPR_at_nominal_thresholds.csv\n\n")
+write.csv(diag_all, "/work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/results_tables/FPR_at_nominal_thresholds_review2026.csv", row.names = FALSE)
 
 ## ------------------------------------------------------
 # Original figures without calibration line
@@ -918,3 +905,87 @@ all_auc_results <- rbind(
 
 print(all_auc_results, row.names = FALSE)
 #write.csv(all_auc_results, "AUC_summary_table.csv", row.names = FALSE)
+## ------------------ COMBINED FIGURE ------------------
+comb_colours   <- c("Driftsel" = "#6E0D25", "H-test" = "#D1495B", "MONET" = "#7FB7E6",
+                    "MONET w/ environment" = "#053225", "QSTFST" = "#F2C14E")
+comb_labels    <- c("Driftsel (S-test)", "Driftsel (H-test)", "MONET", "MONET w/ habitat", "Qst-Fst")
+comb_linetypes <- c("10" = 1, "22" = 2, "50" = 3)
+corr_label     <- c("_cline" = "cline", "_sine" = "parabola", "_grouped" = "grouped", "_swapped" = "swapped")
+
+comb_heights <- c(0.25, 1, 1, 1, 1, 1)
+comb_widths  <- c(0.3, 1, 1, 1)
+comb_layout  <- matrix(c(1,  2,  3,  4,
+                         5,  6,  7,  8,
+                         9, 10, 11, 12,
+                         9, 13, 14, 15,
+                        16, 17, 18, 19,
+                        16, 20, 21, 22), byrow = TRUE, ncol = 4)
+
+comb_panel <- function(res, wd, corr = NULL) {
+  d <- res$thresh_fpr_data
+  d <- d[d$wdiff == wd, ]
+  if (!is.null(corr)) d <- d[!is.na(d$correlation) & d$correlation == corr, ]
+  par(mar = c(4.5, 4.5, 3, 1))
+  plot(NA, xlim = c(0, 1), ylim = c(0, 1), xlab = "Threshold", ylab = "FPR",
+       main = if (is.null(corr)) "" else paste("Correlation =", corr_label[corr]),
+       font.main = 1, cex.lab = 1.5, cex.axis = 1.3, cex.main = 1.6)
+  abline(a = 0, b = 1, col = "darkgrey", lty = 2, lwd = line_width)
+  for (wv in unique(d$wvar)) for (m in names(comb_colours)) {
+    dm <- d[d$wvar == wv & d$method == m, ]
+    lines(dm$threshold, dm$FPR, col = comb_colours[m], lty = comb_linetypes[as.character(wv)], lwd = line_width)
+  }
+}
+
+comb_text <- function(lab, srt = 0, cex = 3.2, font = 2) {
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+  text(0.5, 0.5, lab, srt = srt, cex = cex, font = font)
+}
+
+draw_combined <- function() {
+  layout(comb_layout, heights = comb_heights, widths = comb_widths)
+  par(oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0))
+  plot.new()
+  ss_top <- 1 - sum(comb_heights[1:2]) / sum(comb_heights)
+  ss_bot <- 1 - sum(comb_heights[1:4]) / sum(comb_heights)
+  rect(grconvertX(0, "ndc"), grconvertY(ss_bot, "ndc"), grconvertX(1, "ndc"), grconvertY(ss_top, "ndc"),
+       col = "grey96", border = NA, xpd = NA)
+  for (wd in c("0", "4p6", "10")) comb_text(paste(Delta_theta, "=", disp_wdiff(wd)))
+
+  comb_text("Island Model", srt = 90, font = 1)
+  for (wd in c("0", "4p6", "10")) comb_panel(res_im18, wd)
+
+  comb_text("Stepping stones", srt = 90, font = 1)
+  comb_panel(res_ss, "0")
+  comb_panel(res_ss, "4p6", "_cline")
+  comb_panel(res_ss, "10",  "_cline")
+  par(mar = c(4.5, 4.5, 3, 1))
+  plot.new()
+  legend("center",
+         legend = c(comb_labels, as.expression(lapply(c(10, 22, 50), function(v) bquote("\u03C9"[o] == .(v))))),
+         lty    = c(rep(0, 5), comb_linetypes),
+         lwd    = c(rep(NA, 5), rep(line_width, 3)),
+         pch    = c(rep(15, 5), rep(NA, 3)),
+         pt.cex = 2.5, seg.len = 3,
+         col    = c(comb_colours, rep("black", 3)),
+         cex = 1.7, bg = "white")
+  comb_panel(res_ss, "4p6", "_sine")
+  comb_panel(res_ss, "10",  "_sine")
+
+  comb_text("Hierarchical", srt = 90, font = 1)
+  comb_panel(res_hier, "0")
+  comb_panel(res_hier, "4p6", "_grouped")
+  comb_panel(res_hier, "10",  "_grouped")
+  plot.new()
+  comb_panel(res_hier, "4p6", "_swapped")
+  comb_panel(res_hier, "10",  "_swapped")
+}
+
+comb_w <- 15
+comb_h <- comb_w * sum(comb_heights) / sum(comb_widths)
+png("Figure_Results_FPR_Threshold.png", width = comb_w * 300, height = comb_h * 300, res = 300, pointsize = 12)
+draw_combined()
+dev.off()
+cairo_pdf("Figure_Results_FPR_Threshold.pdf", width = comb_w, height = comb_h, pointsize = 12)
+draw_combined()
+dev.off()

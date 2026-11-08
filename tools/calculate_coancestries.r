@@ -75,7 +75,7 @@ calculate_coancestries <- function(genetic_data_parents,
         F1_dosage <- genetic_data_F1
        
         matching_matrix_F1 <- hierfstat::matching(F1_dosage) 
-        kinship_F1 <- hierfstat::beta.dosage(matching_matrix_F1, matching = TRUE)
+        kinship_F1 <- hierfstat::beta.dosage(matching_matrix_F1, MATCHING = TRUE)
         F1_id <- population_individual_id[,column_individual]
     } else {
         stop("Missing F1 data, either include pedigree or genetic data")
@@ -152,13 +152,24 @@ calculate_coancestries <- function(genetic_data_parents,
     #Theta_P calculation -----------------------------------------------------
     #Matching matrix and kinship for parents
     matching_matrix_parents <- hierfstat::matching(parent_dosage)
-    kinship_parents <- hierfstat::beta.dosage(matching_matrix_parents, matching = TRUE)
+    kinship_parents <- hierfstat::beta.dosage(matching_matrix_parents, MATCHING = TRUE)
     fst_founders <- hierfstat::fs.dosage(matching_matrix_parents, pop = parent_pop_id, matching = TRUE)
 
     cat("Calculating Theta.P \n")
     min_Fst <- min(hierfstat::mat2vec(fst_founders$FsM))
     Theta_P <- (fst_founders$FsM - min_Fst) / (1 - min_Fst)
     cat("Theta.P calculated with dimensions", dim(Theta_P), "\n")
+    #Theta.P must be positive definite. Corrected here, before The.M is built from it
+    #(as in the MONET package). nearPD without corr = TRUE: Theta.P is a coancestry
+    #matrix, not a correlation matrix, so its diagonal must not be forced to 1.
+    eigenvalues_ThetaP <- eigen(Theta_P)$values
+    if (any(eigenvalues_ThetaP < 0)) {
+        cat("Theta.P matrix not positive definite. \n")
+        cat("Minimum eigenvalue is ", min(eigenvalues_ThetaP), "\n")
+        Theta_P <- as.matrix(Matrix::nearPD(Theta_P)$mat)
+        eigenvalues_ThetaP_new <- eigen(Theta_P)$values
+        cat("Theta.P matrix corrected. New min eigenvalue: ", min(eigenvalues_ThetaP_new), "\n")
+    }
     # --------------------------------------------------------------------------
 
 
@@ -232,13 +243,14 @@ calculate_coancestries <- function(genetic_data_parents,
         The.M[pop_indices, pop_indices] <- block_adjusted
     }
 
-    #The M must be positive definite
+    #The M must be positive definite (nearPD without corr = TRUE, as in the MONET package)
     eigenvalues <- eigen(The.M)$values
     if (any(eigenvalues < 0)) {
         cat("M matrix not positive definite. \n")
         cat("Minimum eigenvalue is ", min(eigenvalues), "\n")
-        The.M <- as.matrix(Matrix::nearPD(The.M, corr = TRUE)$mat)
-        cat("WARNING::M matrix corrected to be positive definite. \n")
+        The.M <- as.matrix(Matrix::nearPD(The.M)$mat)
+        eigenvalues_new <- eigen(The.M)$values
+        cat("M matrix corrected. New min eigenvalue: ", min(eigenvalues_new), "\n")
     }
 
     cat("The.M calculated with dimensions ", dim(The.M), "\n")

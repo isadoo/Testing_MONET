@@ -1,0 +1,6 @@
+Compiling Stan program...
+Start sampling
+Warning message:
+Dropping 'draws_df' class as required metadata was removed. 
+Error: unexpected ',' in "    log_ratio_mean   = fit$log_ratio$mean,"
+Execution halted

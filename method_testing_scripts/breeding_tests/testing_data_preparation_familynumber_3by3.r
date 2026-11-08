@@ -3,7 +3,7 @@
 # We will do 3 dams and 3 sires per population. (2 offspring per mating; total 18 offspring per population)
 # For this breeding design we need to sample 6 individuals per population (now we have 10) and then say half is sires and half dams.
 # We run for all population structures
-# WE ONLY RUN THIS FOR wo = 10, wvar = 10 (both correlations)
+# Used in the paper for wdiff 4.6, wvar 10 (both correlations)
 
 #setwd("Chapter2")
 source("../../Package/counting_blocks_matrix.r")

@@ -2,7 +2,7 @@
 # The current script is the one related to the breeding design and number of families.
 # We will do 1 dam and 9 sires per population (2 offspring per mating; total 18 offspring per population)
 # We run for all population structures
-# WE ONLY RUN THIS FOR wo = 10, wvar = 10 (both correlations)
+# Used in the paper for wdiff 4.6, wvar 10 (both correlations)
 
 #setwd("Chapter2")
 source("../../Package/counting_blocks_matrix.r")

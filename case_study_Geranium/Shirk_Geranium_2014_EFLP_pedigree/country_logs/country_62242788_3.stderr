@@ -1,0 +1,5 @@
+Compiling Stan program...
+Start sampling
+There were 11 warnings (use warnings() to see them)
+Error: unexpected ',' in "    log_ratio_mean   = fit$log_ratio$mean,"
+Execution halted

@@ -1,0 +1,6 @@
+"species","garden","trait","max_rhat","min_ess","reason"
+"faginea","GH","RGR.TreatD",1.30926250493174,NA,"Rhat=1.309"
+"faginea","OC","Area",1.25393225111456,NA,"Rhat=1.254"
+"faginea","OC","PA",1.06855665960185,NA,"Rhat=1.069"
+"lusitanica","GH","Gsarea.TreatW",1.13022599815141,NA,"Rhat=1.130"
+"lusitanica","GH","PA.TreatW",1.0697454736149,NA,"Rhat=1.070"

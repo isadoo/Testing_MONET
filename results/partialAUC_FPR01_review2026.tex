@@ -1,0 +1,52 @@
+\begin{table}[ht]
+\centering
+\caption{Partial area under the ROC curve for FPR between 0 and 0.1, divided by 0.1 so that it equals the mean power over this FPR range (1 for a perfect test, 0.05 for a random one). ROC curves are computed from the 500 selected and 500 neutral traits of each scenario. The highest value of each row is in bold; -- indicates that the method was not applied.}
+\label{tab:pauc_fpr01}
+\begin{tabular}{lllrccccc}
+\toprule
+Population structure & $\Delta\theta$ & Correlation & $\omega_o$ & $Q_{ST}$-$F_{ST}$ & MONET & MONET w/ habitat & Driftsel (S-test) & Driftsel (H-test) \\
+\midrule
+Island Model & 0 &  & 10 & \textbf{0.86} & 0.81 & -- & 0.83 & -- \\
+ & 0 &  & 22 & 0.56 & 0.48 & -- & \textbf{0.57} & -- \\
+ & 0 &  & 50 & 0.09 & 0.07 & -- & \textbf{0.11} & -- \\
+ & 4.6 &  & 10 & 0.51 & 0.63 & \textbf{1.00} & 0.51 & 0.99 \\
+ & 4.6 &  & 22 & 0.04 & 0.09 & \textbf{1.00} & 0.04 & 0.55 \\
+ & 4.6 &  & 50 & 0.06 & 0.05 & \textbf{0.27} & 0.07 & 0.07 \\
+ & 10 &  & 10 & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} \\
+ & 10 &  & 22 & 0.99 & 0.99 & 0.99 & \textbf{1.00} & \textbf{1.00} \\
+ & 10 &  & 50 & 0.05 & 0.09 & \textbf{0.80} & 0.04 & 0.20 \\
+\midrule
+Stepping stones & 0 &  & 10 & 0.09 & \textbf{0.23} & -- & 0.10 & -- \\
+ & 0 &  & 22 & 0.03 & \textbf{0.08} & -- & 0.04 & -- \\
+ & 0 &  & 50 & 0.02 & \textbf{0.05} & -- & 0.03 & -- \\
+ & 4.6 & cline & 10 & 0.59 & 0.07 & 0.69 & 0.09 & \textbf{0.70} \\
+ & 4.6 & cline & 22 & 0.36 & 0.07 & \textbf{0.38} & 0.06 & 0.35 \\
+ & 4.6 & cline & 50 & 0.06 & 0.04 & \textbf{0.08} & 0.04 & 0.06 \\
+ & 4.6 & parabola & 10 & 0.86 & 0.98 & 0.99 & \textbf{1.00} & 0.99 \\
+ & 4.6 & parabola & 22 & 0.54 & 0.91 & \textbf{0.97} & 0.96 & 0.81 \\
+ & 4.6 & parabola & 50 & 0.02 & 0.17 & \textbf{0.52} & 0.20 & 0.05 \\
+ & 10 & cline & 10 & 0.91 & 0.95 & 0.89 & \textbf{1.00} & \textbf{1.00} \\
+ & 10 & cline & 22 & 0.83 & 0.86 & 0.78 & 0.98 & \textbf{1.00} \\
+ & 10 & cline & 50 & 0.68 & 0.28 & 0.41 & 0.34 & \textbf{0.72} \\
+ & 10 & parabola & 10 & 0.88 & 0.99 & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} \\
+ & 10 & parabola & 22 & 0.87 & 0.99 & \textbf{1.00} & \textbf{1.00} & 0.98 \\
+ & 10 & parabola & 50 & 0.55 & 0.90 & \textbf{0.95} & 0.93 & 0.74 \\
+\midrule
+Hierarchical & 0 &  & 10 & 0.27 & \textbf{0.33} & -- & 0.23 & -- \\
+ & 0 &  & 22 & \textbf{0.10} & 0.07 & -- & 0.09 & -- \\
+ & 0 &  & 50 & 0.04 & \textbf{0.08} & -- & 0.04 & -- \\
+ & 4.6 & grouped & 10 & 0.84 & 0.53 & 0.99 & 0.63 & \textbf{1.00} \\
+ & 4.6 & grouped & 22 & 0.03 & 0.04 & \textbf{0.24} & 0.04 & 0.04 \\
+ & 4.6 & grouped & 50 & 0.07 & \textbf{0.09} & 0.06 & 0.05 & 0.05 \\
+ & 4.6 & swapped & 10 & 0.48 & 0.89 & \textbf{1.00} & 0.77 & 0.70 \\
+ & 4.6 & swapped & 22 & 0.05 & 0.07 & \textbf{0.38} & 0.05 & 0.03 \\
+ & 4.6 & swapped & 50 & 0.05 & 0.06 & \textbf{0.07} & 0.05 & 0.05 \\
+ & 10 & grouped & 10 & \textbf{1.00} & \textbf{1.00} & 0.99 & \textbf{1.00} & \textbf{1.00} \\
+ & 10 & grouped & 22 & 0.19 & 0.17 & \textbf{0.78} & 0.15 & 0.47 \\
+ & 10 & grouped & 50 & 0.06 & \textbf{0.09} & 0.06 & 0.07 & 0.08 \\
+ & 10 & swapped & 10 & 0.98 & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} & \textbf{1.00} \\
+ & 10 & swapped & 22 & 0.05 & 0.26 & \textbf{0.93} & 0.10 & 0.08 \\
+ & 10 & swapped & 50 & 0.05 & \textbf{0.10} & 0.09 & 0.05 & 0.05 \\
+\bottomrule
+\end{tabular}
+\end{table}

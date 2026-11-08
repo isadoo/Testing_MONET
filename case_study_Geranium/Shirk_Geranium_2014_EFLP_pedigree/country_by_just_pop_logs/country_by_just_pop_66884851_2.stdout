@@ -1,0 +1,176 @@
+Task 2: experiment=exp1 trait=boltC
+Using 4 cores for parallel chain sampling
+
+ monet logAV x country (by = country for pop only) 
+experiment: exp1 
+basedir   : /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study_Geranium/Shirk_Geranium_2014_EFLP_pedigree 
+outdir    : /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study_Geranium/Shirk_Geranium_2014_EFLP_pedigree/results_logAV_country_by_just_pop 
+
+Population -> country mapping:
+       
+        USA China
+  AL-4   70     0
+  CN-12   0    70
+  CN-15   0    70
+  CN-19   0    70
+  CN-2    0    70
+  CN-20   0    70
+  CN-22   0    70
+  CN-3    0    70
+  CN-4    0    70
+  CN-5    0    70
+  CN-9    0    70
+  FL-2   70     0
+  FL-3   70     0
+  GA-1   70     0
+  GA-2   70     0
+  GA-5   70     0
+  MD-1   70     0
+  MS-1   70     0
+  MS-2   70     0
+  NC-1   70     0
+
+Derived dff_days = dff - germ_lookup (n = 1400 )
+Derived juvlf_days = juvlf_date - planted_lookup (n = 1400 )
+
+Derived repro_ratio = repwt / totalAG (n = 1311 )
+
+Found 17 trait(s):
+   boltA, boltB, boltC, dff_days, harvest_ht, juvlf_days, juvlf_len, lfarea, lfmass, repro_ratio, repwt, rootwt, rose_dia, seedwt, SLA, totalAG, vegwt 
+
+Restricting to single trait (MONET_TRAIT): boltC 
+
+---- trait: boltC ----
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 1).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 2).
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 3).
+Chain 1: 
+Chain 1: Gradient evaluation took 0.001476 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 14.76 seconds.
+Chain 1: Adjust your expectations accordingly!
+Chain 1: 
+Chain 1: 
+Chain 2: 
+Chain 2: Gradient evaluation took 0.001385 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 13.85 seconds.
+Chain 2: Adjust your expectations accordingly!
+Chain 2: 
+Chain 2: 
+
+SAMPLING FOR MODEL 'anon_model' NOW (CHAIN 4).
+Chain 1: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 3: 
+Chain 3: Gradient evaluation took 0.001445 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 14.45 seconds.
+Chain 3: Adjust your expectations accordingly!
+Chain 3: 
+Chain 3: 
+Chain 4: 
+Chain 4: Gradient evaluation took 0.001847 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 18.47 seconds.
+Chain 4: Adjust your expectations accordingly!
+Chain 4: 
+Chain 4: 
+Chain 3: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 4: Iteration:     1 / 12000 [  0%]  (Warmup)
+Chain 2: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 4: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 3: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 1: Iteration:  1200 / 12000 [ 10%]  (Warmup)
+Chain 2: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 4: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 3: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 1: Iteration:  2400 / 12000 [ 20%]  (Warmup)
+Chain 2: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 4: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 1: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 3: Iteration:  3600 / 12000 [ 30%]  (Warmup)
+Chain 2: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 4: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 1: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 3: Iteration:  4001 / 12000 [ 33%]  (Sampling)
+Chain 2: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 1: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 3: Iteration:  5200 / 12000 [ 43%]  (Sampling)
+Chain 4: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 2: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 2: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration:  6400 / 12000 [ 53%]  (Sampling)
+Chain 4: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 2: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 2: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration:  7600 / 12000 [ 63%]  (Sampling)
+Chain 4: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 4: 
+Chain 4:  Elapsed Time: 2601.37 seconds (Warm-up)
+Chain 4:                4257.54 seconds (Sampling)
+Chain 4:                6858.91 seconds (Total)
+Chain 4: 
+Chain 2: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 2: 
+Chain 2:  Elapsed Time: 2580.3 seconds (Warm-up)
+Chain 2:                4315.62 seconds (Sampling)
+Chain 2:                6895.93 seconds (Total)
+Chain 2: 
+Chain 1: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 3: Iteration:  8800 / 12000 [ 73%]  (Sampling)
+Chain 1: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 3: Iteration: 10000 / 12000 [ 83%]  (Sampling)
+Chain 1: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 3: Iteration: 11200 / 12000 [ 93%]  (Sampling)
+Chain 1: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 1: 
+Chain 1:  Elapsed Time: 2671.39 seconds (Warm-up)
+Chain 1:                5653.57 seconds (Sampling)
+Chain 1:                8324.95 seconds (Total)
+Chain 1: 
+Chain 3: Iteration: 12000 / 12000 [100%]  (Sampling)
+Chain 3: 
+Chain 3:  Elapsed Time: 2792.14 seconds (Warm-up)
+Chain 3:                5565.05 seconds (Sampling)
+Chain 3:                8357.18 seconds (Total)
+Chain 3: 
+ Family: poisson 
+  Links: mu = log 
+Formula: Y ~ country + (1 | gr(pop, cov = two.Theta.P, by = country)) + (1 | gr(ind, cov = M)) 
+   Data: dat (Number of observations: 1312) 
+  Draws: 4 chains, each with iter = 12000; warmup = 4000; thin = 2;
+         total post-warmup draws = 16000
+
+Multilevel Hyperparameters:
+~ind (Number of levels: 1312) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     1.73      0.10     1.55     1.93 1.00     6987    11420
+
+~pop (Number of levels: 20) 
+                           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+sd(Intercept:countryUSA)       2.73      0.91     1.36     4.89 1.00     8886
+sd(Intercept:countryChina)     0.43      0.37     0.01     1.36 1.00    10590
+                           Tail_ESS
+sd(Intercept:countryUSA)      12535
+sd(Intercept:countryChina)    12568
+
+Regression Coefficients:
+             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept       -2.94      1.13    -5.22    -0.64 1.00     8053    10409
+countryChina     1.73      0.95    -0.26     3.69 1.00     8452    10735
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+  Wrote: /work/FAC/FBM/DEE/jgoudet/default/isaChapter2/isaChapter2/Testing_simulated_data/Testing_MONET/case_study_Geranium/Shirk_Geranium_2014_EFLP_pedigree/results_logAV_country_by_just_pop/summary_logAV_country_by_just_pop_exp1_boltC.csv 
+  logAV USA   = 0.804  [-0.495, 2.088]  p = 0.2147
+  logAV China = -3.712  [-9.611, -0.483]  p = 0.0155
+  logAV diff  = -4.515  [-10.394, -1.190]  p = 0.0032
+

@@ -369,10 +369,21 @@ function(popefpost, Gpost, THpost, env, silent=T){
 
 	# Posterior of Mantel statistic for phenotypic distance
 	mobs = mrand = rep(NA, nmc)
+	n.nearPD = 0 # review 2026: number of MCMC samples where Sig had to be corrected
 	for( i in 1:nmc ){
 		G = Gpost[,,i] # G matrix
 		theta = THpost[,,i] # theta	
-		C2 = matrix(mvrnorm( 1, rep(0, nx), 2*G %x% theta ), nrow=npop)
+		Sig = 2*G %x% theta
+		# review 2026: some posterior samples are numerically not positive definite and mvrnorm()
+		# stops. Same check as mvrnorm (tol = 1e-6); if it fails, use the nearest PD matrix
+		# (Matrix::nearPD, as done for Theta.P / The.M in calculate_coancestries.r).
+		# Sig is a covariance matrix, so no corr = TRUE.
+		ev = eigen(Sig, symmetric=TRUE, only.values=TRUE)$values
+		if( !all(ev >= -1e-6*abs(ev[1])) ){
+			Sig = as.matrix(Matrix::nearPD(Sig)$mat)
+			n.nearPD = n.nearPD + 1
+			}
+		C2 = matrix(mvrnorm( 1, rep(0, nx), Sig ), nrow=npop)
 		D2 = into.dist(popefpost[,,i]) # observed distance matrix		
 		C2 = into.dist(C2) # distance matrix from neutral model
 		mobs[i] = mantel.stat(D2, env) # observed product moment
@@ -387,6 +398,7 @@ function(popefpost, Gpost, THpost, env, silent=T){
   	}
 
  	out = length(which(mobs>mrand)) / length(mobs)
+	attr(out, "n.nearPD") = n.nearPD
 	return(out)
 	}
 

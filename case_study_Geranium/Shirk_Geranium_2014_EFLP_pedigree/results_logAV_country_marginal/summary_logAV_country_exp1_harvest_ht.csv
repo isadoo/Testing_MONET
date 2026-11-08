@@ -1,0 +1,2 @@
+"experiment","trait","n_individuals","n_populations","log_ratio_mean","log_ratio_median","log_ratio_lo","log_ratio_hi","log_ratio_p","country_beta_mean","country_beta_median","country_beta_lo","country_beta_hi","country_p","n_divergent","max_rhat"
+"exp1","harvest_ht",1313,20,1.62783848684936,1.60517801553083,0.646357852567618,2.74666103302512,0.001625,0.343086702836901,0.342442622015701,-0.0545851335069684,0.745330918099007,0.093375,0,1.00032895239907

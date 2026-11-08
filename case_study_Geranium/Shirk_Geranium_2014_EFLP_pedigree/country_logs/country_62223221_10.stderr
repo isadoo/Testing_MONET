@@ -1,0 +1,7 @@
+Compiling Stan program...
+Start sampling
+There were 11 warnings (use warnings() to see them)
+Error: unexpected '{' in:
+"  cat("No traits produced a summary row.\n")
+}{"
+Execution halted

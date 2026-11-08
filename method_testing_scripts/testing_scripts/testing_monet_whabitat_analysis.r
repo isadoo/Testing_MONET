@@ -1,5 +1,6 @@
 source("tools/monet_whabitat.r")
 source("tools/counting_blocks_matrix.r")
+source("tools/habitat_optima.r")
 
 library(gaston)
 library(hierfstat)
@@ -14,8 +15,8 @@ Population_structure <- args[2]
 number_of_pop <- as.integer(args[3])
 generations <- as.integer(args[4])
 correlation <- ifelse(args[5] == "NA", NA, args[5])
-wdiff <- as.numeric(args[6])
-wvar <- as.numeric(args[7])
+wdiff <- args[6]
+wvar <- args[7]
 experiment_name <- args[8]
 
 #This bit here is for when I want to test the script.
@@ -25,8 +26,8 @@ experiment_name <- args[8]
 # number_of_pop <- 18
 # generations <- 1000
 # correlation <- "swapped"
-# wdiff <- 4.6
-# wvar <- 22
+# wdiff <- "4p6"
+# wvar <- "22"
 # experiment_name <- "quantinemo_hierarchical_18pop"
 
 #Correct correlation parameter: remove leading/trailing underscores and potential typos
@@ -52,41 +53,9 @@ intermediate_file <- paste0(intermediate_dir, "prepared_data_rep", replicate_num
 cat("Loading data from:", intermediate_file, "\n")
 load(intermediate_file)
 
-#Going from parameters to habitat info. This habitat info is what we use as a covariate in monet.
-#This "habitat" is actually the optima we used in the simulations.
-get_habitat_optima <- function(Population_structure, correlation) {
-  
-  if (Population_structure == "hierarchical") {
-    if (correlation == "grouped") {
-      return(rep(c(-2.3, -1.38, -0.46, 0.46, 1.38, 2.3), each = 3))
-    } else if (correlation == "swapped") {
-      return(rep(c(-2.3, -1.15, 0, -1.15, 0, 1.15, 0, 1.15, 2.3), 2))
-    }
-  } else if (Population_structure == "SS") {
-    if (correlation == "cline") {
-      return(c(-2.3000000, -2.0578947, -1.8157895, -1.5736842, -1.3315789, 
-               -1.0894737, -0.8473684, -0.6052632, -0.3631579, -0.1210526,  
-               0.1210526,  0.3631579,  0.6052632,  0.8473684, 1.0894737,  
-               1.3315789,  1.5736842,  1.8157895,  2.0578947,  2.3000000))
-    } else if (correlation == "sine") {
-      return(c(0.1210526, 1.5736842, 2.3000000, 1.5736842, 0.1210526, 
-               -1.3315789, -2.3000000, -1.3315789, 0.1210526, 1.5736842, 
-               2.3000000, 1.5736842, 0.1210526, -1.3315789, -2.3000000, 
-               -1.3315789, 0.1210526, 1.5736842, 2.0578947, 1.3315789))
-    }
-  } else if (Population_structure == "IM") {
-    # For IM, correlation is NA, so we don't check it
-    return(c(-2.30, -2.03, -1.76, -1.49, -1.22, -0.95, -0.68, -0.41, -0.14,  
-             0.14,  0.41,  0.68,  0.95,  1.22, 1.49,  1.76,  2.03,  2.30))
-  }
-  
-  stop(paste0("Invalid parameter combination: Population_structure=", Population_structure,
-              ", correlation=", correlation))
-}
-
 #the optima is what we use as habitat information. 
-cat("Getting habitat optima for:", Population_structure, "correlation =", correlation, "\n")
-habitat_optima <- get_habitat_optima(Population_structure, correlation)
+cat("Getting habitat optima for:", Population_structure, "correlation =", correlation, "wdiff =", wdiff, "\n")
+habitat_optima <- get_habitat_optima(Population_structure, correlation, wdiff)
 cat("Habitat optima:", paste(round(habitat_optima, 2), collapse = ", "), "\n")
 
 cat("Starting MONET with habitat\n")
