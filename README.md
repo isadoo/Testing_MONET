@@ -2,7 +2,7 @@
 
 This repository is related to a paper under review.
 In this work we present MONET - MOdel of Neutral Evolution of Traits. 
-Check out the model's repository here: [isadoo](https://github.com/isadoo/MONET)
+Check out the model's repository here: [MONET](https://github.com/isadoo/MONET)
 This particular repository is for the part of the testing and applying MONET for testing different hypothesis. 
 
 We tested two methods of MONET (logAV and habitat as a covariate) and other comparable methods previously published using simulated data
